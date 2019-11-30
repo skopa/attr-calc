@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'api'], function () {
+
+    Route::post('auth', 'AuthController@login');
+
+    Route::group(['middleware' => 'auth'], function () {
+
+        Route::post('logout', 'AuthController@logout');
+
+        Route::get('user', function (\Illuminate\Http\Request $request) {
+            return response()->json($request->user());
+        });
+
+    });
+
 });
+
+Route::get('/{any?}', function () {
+    return view('home');
+})->where('any', '.*');

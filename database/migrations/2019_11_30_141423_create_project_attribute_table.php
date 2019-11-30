@@ -15,6 +15,15 @@ class CreateProjectAttributeTable extends Migration
     {
         Schema::create('project_attribute', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('project_id');
+            $table->unsignedBigInteger('attribute_id');
+            $table->foreign('project_id')
+                ->references('id')
+                ->on('projects');
+            $table->foreign('attribute_id')
+                ->references('id')
+                ->on('attributes');
+            $table->float('value');
             $table->timestamps();
         });
     }
