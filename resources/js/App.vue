@@ -9,7 +9,7 @@
                     <router-link to="/" class="nav-link">Projects</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link to="/attributes" class="nav-link">Attributes</router-link>
+                    <router-link to="/attributes" class="nav-link">Parameters</router-link>
                 </li>
                 <li class="nav-item" v-if="user">
                     <span class="nav-link pointer" v-on:click="logout">Logout</span>

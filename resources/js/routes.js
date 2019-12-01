@@ -23,12 +23,12 @@ export default [
     },
     {
         name: 'attributes',
-        path: '/attributes',
+        path: '/parameters',
         component: AttributesListComponent
     },
     {
         name: 'edit-attribute',
-        path: '/attributes/:id',
+        path: '/parameters/:id',
         component: AttributeEditComponent
     },
 
