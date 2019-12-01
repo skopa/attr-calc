@@ -5,17 +5,17 @@
                 <li class="nav-item" v-if="user">
                     <span class="nav-link pointer">{{ user.name }}</span>
                 </li>
-                <li class="nav-item" v-if="user">
-                    <span class="nav-link pointer" v-on:click="logout">Logout</span>
-                </li>
-                <li class="nav-item" v-else>
-                    <a v-google-oauth="client_id" class="nav-link pointer">SigIn with Google</a>
-                </li>
                 <li class="nav-item">
                     <router-link to="/" class="nav-link">Projects</router-link>
                 </li>
                 <li class="nav-item">
                     <router-link to="/attributes" class="nav-link">Attributes</router-link>
+                </li>
+                <li class="nav-item" v-if="user">
+                    <span class="nav-link pointer" v-on:click="logout">Logout</span>
+                </li>
+                <li class="nav-item" v-else>
+                    <a v-google-oauth="client_id" class="nav-link pointer">SigIn with Google</a>
                 </li>
             </ul>
         </nav>

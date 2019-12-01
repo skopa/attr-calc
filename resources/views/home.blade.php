@@ -8,9 +8,12 @@
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet"/>
     <meta name="csrf-token" value="{{ csrf_token() }}"/>
     <meta name="google-client-id" value="{{ config('services.google.client_id') }}">
+    <!--<meta name="user" value="">-->
 </head>
 <body>
 <div id="app"></div>
+<script src="{{ mix('js/manifest.js') }}" type="text/javascript"></script>
+<script src="{{ mix('js/vendor.js') }}" type="text/javascript"></script>
 <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
 </body>
 </html>
