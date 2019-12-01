@@ -43,7 +43,7 @@
 
 <script>
     export default {
-        name: "EditProjectComponent",
+        name: "ProjectEditComponent",
         data: function () {
             return {
                 project: {

@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AttributeRequest;
+use App\Http\Resources\AttributeResource;
 use App\Models\Attribute;
-use Illuminate\Http\Request;
 
 class AttributeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
-        return response()->json(
+        return AttributeResource::collection(
             Attribute::all()
         );
     }
@@ -22,45 +23,49 @@ class AttributeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param AttributeRequest $request
+     * @return AttributeResource
      */
-    public function store(Request $request)
+    public function store(AttributeRequest $request)
     {
-        //
+        $attribute = Attribute::query()->create($request->validated());
+        return AttributeResource::make($attribute);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Attribute  $attribute
-     * @return \Illuminate\Http\Response
+     * @param Attribute $attribute
+     * @return AttributeResource
      */
     public function show(Attribute $attribute)
     {
-        //
+        return AttributeResource::make($attribute);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Attribute  $attribute
-     * @return \Illuminate\Http\Response
+     * @param AttributeRequest $request
+     * @param Attribute $attribute
+     * @return AttributeResource
      */
-    public function update(Request $request, Attribute $attribute)
+    public function update(AttributeRequest $request, Attribute $attribute)
     {
-        //
+        $attribute->update($request->validated());
+        return AttributeResource::make($attribute);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Attribute  $attribute
+     * @param Attribute $attribute
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Attribute $attribute)
     {
-        //
+        $attribute->delete();
+        return response(null, 204);
     }
 }

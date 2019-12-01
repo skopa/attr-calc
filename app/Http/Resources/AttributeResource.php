@@ -4,13 +4,11 @@ namespace App\Http\Resources;
 
 use App\Models\Attribute;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Collection;
 
 /**
  * Class AttributeResource
  * @package App\Http\Resources
- * @property-read Attribute attribute
- * @property-read Collection projectParameters
+ * @property-read Attribute $resource
  */
 class AttributeResource extends JsonResource
 {
@@ -24,15 +22,12 @@ class AttributeResource extends JsonResource
      */
     public function toArray($request)
     {
-        $projectParameters = $this->projectParameters ?? collect();
-
         return [
-            'id' => $this->attribute->id,
-            'name' => $this->attribute->name,
-            'value' => $projectParameters->get($this->attribute->id, 0),
-            'parameter' => $this->attribute->parameter,
-            'min' => $this->attribute->min,
-            'max' => $this->attribute->max,
+            'id' => $this->resource->id,
+            'name' => $this->resource->name,
+            'parameter' => $this->resource->parameter,
+            'min' => $this->resource->min,
+            'max' => $this->resource->max,
         ];
     }
 }

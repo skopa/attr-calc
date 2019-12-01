@@ -19,11 +19,16 @@ class CreateProjectAttributeTable extends Migration
             $table->unsignedBigInteger('attribute_id');
             $table->foreign('project_id')
                 ->references('id')
-                ->on('projects');
+                ->on('projects')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->foreign('attribute_id')
                 ->references('id')
-                ->on('attributes');
+                ->on('attributes')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->float('value');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
