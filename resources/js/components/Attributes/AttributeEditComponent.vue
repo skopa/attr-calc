@@ -21,6 +21,7 @@
                             <input class="form-control"
                                    placeholder="Min value"
                                    id="min" type="number" step="any"
+                                   v-bind:max="parameter.max"
                                    v-model="parameter.min" required>
                         </div>
 
@@ -29,6 +30,7 @@
                             <input class="form-control"
                                    placeholder="Max value"
                                    id="max" type="number" step="any"
+                                   v-bind:min="parameter.min"
                                    v-model="parameter.max" required>
                         </div>
 
