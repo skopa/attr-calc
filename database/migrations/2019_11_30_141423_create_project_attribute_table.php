@@ -28,7 +28,6 @@ class CreateProjectAttributeTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->float('value');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

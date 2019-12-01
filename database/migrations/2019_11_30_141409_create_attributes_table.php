@@ -19,6 +19,7 @@ class CreateAttributesTable extends Migration
             $table->float('parameter');
             $table->float('min');
             $table->float('max');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
