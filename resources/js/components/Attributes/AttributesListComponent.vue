@@ -7,33 +7,35 @@
                     <a class="btn btn-outline-success btn-sm right" v-on:click="edit('new')">Create new</a>
                 </div>
 
-                <table class="card-body table table-striped no-margin">
-                    <thead>
-                    <tr>
-                        <td class="id">Id</td>
-                        <td>Name</td>
-                        <td class="value">Min</td>
-                        <td class="value">Max</td>
-                        <td class="value">Parameter</td>
-                        <td></td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="(item, index) in attributes">
-                        <td>{{item.id}}</td>
-                        <td>{{item.name}}</td>
-                        <td>{{item.min}}</td>
-                        <td>{{item.max}}</td>
-                        <td>{{item.parameter}}</td>
-                        <td class="control">
-                            <div>
-                                <a class="btn btn-outline-success btn-sm" v-on:click="edit(item.id)">Edit</a>
-                                <a class="btn btn-outline-danger btn-sm" v-on:click="remove(item, index)">Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-striped no-margin">
+                        <thead>
+                        <tr>
+                            <td class="id">Id</td>
+                            <td class="name">Name</td>
+                            <td class="value">Min</td>
+                            <td class="value">Max</td>
+                            <td class="value">Parameter</td>
+                            <td></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(item, index) in attributes">
+                            <td>{{item.id}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.min}}</td>
+                            <td>{{item.max}}</td>
+                            <td>{{item.parameter}}</td>
+                            <td class="control">
+                                <div>
+                                    <a class="btn btn-outline-success btn-sm" v-on:click="edit(item.id)">Edit</a>
+                                    <a class="btn btn-outline-danger btn-sm" v-on:click="remove(item, index)">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

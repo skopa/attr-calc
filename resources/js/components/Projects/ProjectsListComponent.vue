@@ -7,33 +7,36 @@
                     <a class="btn btn-outline-success btn-sm right" v-on:click="create('new')">Create project</a>
                 </div>
 
-                <table class="card-body table table-striped no-margin">
-                    <thead>
-                    <tr>
-                        <td class="id">Id</td>
-                        <td>Name</td>
-                        <td>Score</td>
-                        <td></td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="(project, index) in projects">
-                        <td>{{project.id}}</td>
-                        <td>
-                            <b>{{project.name}}</b>
-                            <br>
-                            <small>Created by: {{project.user.name}}</small>
-                        </td>
-                        <td>{{project.score || 0}}</td>
-                        <td class="control">
-                            <div>
-                                <a class="btn btn-outline-primary btn-sm" v-on:click="view(project.id)">View</a>
-                                <a class="btn btn-outline-danger btn-sm" v-on:click="remove(project, index)">Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-striped no-margin">
+                        <thead>
+                        <tr>
+                            <td class="id">Id</td>
+                            <td class="name">Name</td>
+                            <td class="value">Score</td>
+                            <td></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(project, index) in projects">
+                            <td>{{project.id}}</td>
+                            <td>
+                                <b>{{project.name}}</b>
+                                <br>
+                                <small>Created by: {{project.user.name}}</small>
+                            </td>
+                            <td>{{project.score || 0}}</td>
+                            <td class="control">
+                                <div>
+                                    <a class="btn btn-outline-primary btn-sm" v-on:click="view(project.id)">View</a>
+                                    <a class="btn btn-outline-danger btn-sm"
+                                       v-on:click="remove(project, index)">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

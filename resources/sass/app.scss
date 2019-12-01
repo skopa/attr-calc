@@ -16,12 +16,17 @@
   }
 
   .control {
-    width: 140px;
+    min-width: 135px;
+    width: 145px;
 
     & > div {
       display: flex;
       justify-content: space-between;
     }
+  }
+
+  .name {
+    min-width: 200px;
   }
 }
 
