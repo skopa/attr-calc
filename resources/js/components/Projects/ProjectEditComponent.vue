@@ -80,7 +80,7 @@
             getData: function () {
                 if (this.isNew()) {
                     this.axios.get('/api/attributes')
-                        .then(response => this.project.parameters = response.data)
+                        .then(response => this.project.parameters = response.data.data)
                         .catch();
                 } else {
                     this.axios.get('/api/projects/' + this.$route.params.id)
