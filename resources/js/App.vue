@@ -26,6 +26,15 @@
             </transition>
         </div>
         <notifications group="app" position="bottom left" :speed="500"></notifications>
+
+        <div v-bind:class="{'loader-container': loader}">
+            <div class="loader">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -43,6 +52,7 @@
             return {
                 user: null,
                 client_id: null,
+                loader: true
             }
         },
 
@@ -52,6 +62,28 @@
             this.axios.get('/api/user').then(response => {
                 this.user = response.data;
             });
+
+            this.axios.interceptors.request.use(
+                conf => {
+                    this.loader = true;
+                    return conf;
+                },
+                error => {
+                    this.loader = false;
+                    return Promise.reject(error);
+                }
+            );
+            this.axios.interceptors.response.use(
+                response => {
+                    this.loader = false;
+                    return response;
+                },
+                error => {
+                    this.loader = false;
+                    return Promise.reject(error);
+                }
+            );
+
         },
 
         methods: {
