@@ -21,9 +21,7 @@
         </nav>
         <br/>
         <div class="container-fluid">
-            <transition name="fade">
-                <router-view></router-view>
-            </transition>
+            <router-view></router-view>
         </div>
         <notifications group="app" position="bottom left" :speed="500"></notifications>
 
@@ -133,14 +131,6 @@
 </script>
 
 <style scoped>
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .5s
-    }
-
-    .fade-enter, .fade-leave-active {
-        opacity: 0;
-    }
-
     .pointer {
         cursor: pointer;
     }
