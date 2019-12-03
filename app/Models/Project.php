@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Project extends Model
 {
+    protected $scoreDecimals = 8;
+
     protected $fillable = [
         'name'
     ];
@@ -58,7 +60,7 @@ class Project extends Model
             $this->parameters->sum(function ($attr) {
                 return $attr->pivot->value * $attr->parameter;
             }),
-            5
+            $this->scoreDecimals
         );
     }
 }
