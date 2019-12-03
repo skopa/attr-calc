@@ -8,7 +8,7 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-striped no-margin">
+                    <table class="table table-striped">
                         <thead>
                         <tr>
                             <td class="id">Id</td>

@@ -12,22 +12,24 @@
                     <h5>Total score: {{project.score || 0}}</h5>
                 </div>
 
-                <table class="card-body table table-striped no-margin">
-                    <thead>
-                    <tr>
-                        <td class="id">#</td>
-                        <td>Attribute name</td>
-                        <td>Value</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="(parameter, index) in project.parameters">
-                        <td>{{index+1}}</td>
-                        <td>{{parameter.name}}</td>
-                        <td>{{parameter.value || 0}}</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <td class="id">#</td>
+                            <td>Attribute name</td>
+                            <td>Value</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(parameter, index) in project.parameters">
+                            <td>{{index+1}}</td>
+                            <td>{{parameter.name}}</td>
+                            <td>{{parameter.value || 0}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
