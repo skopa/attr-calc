@@ -28,6 +28,10 @@ class AttributeResource extends JsonResource
             'parameter' => $this->resource->parameter,
             'min' => $this->resource->min,
             'max' => $this->resource->max,
+            'value' => $this->when(
+                $this->resource->min == $this->resource->max,
+                $this->resource->min
+            )
         ];
     }
 }
