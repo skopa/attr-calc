@@ -3,6 +3,7 @@ import AttributesListComponent from "./components/Attributes/AttributesListCompo
 import ProjectDetailsComponent from "./components/Projects/ProjectDetailsComponent";
 import ProjectEditComponent from "./components/Projects/ProjectEditComponent";
 import AttributeEditComponent from "./components/Attributes/AttributeEditComponent";
+import InstructionComponent from "./components/InstructionComponent";
 
 
 export default [
@@ -30,6 +31,11 @@ export default [
         name: 'edit-attribute',
         path: '/parameters/:id',
         component: AttributeEditComponent
+    },
+    {
+        name: 'instruction',
+        path: '/instruction',
+        component: InstructionComponent
     },
 
 ];

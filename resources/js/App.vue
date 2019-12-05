@@ -11,6 +11,9 @@
                 <li class="nav-item">
                     <router-link to="/parameters" class="nav-link">Parameters</router-link>
                 </li>
+                <li class="nav-item">
+                    <router-link to="/instruction" class="nav-link">How to use</router-link>
+                </li>
                 <li class="nav-item" v-if="user">
                     <span class="nav-link pointer" v-on:click="logout">Logout</span>
                 </li>
@@ -20,9 +23,16 @@
             </ul>
         </nav>
         <br/>
-        <div class="container-fluid">
+        <div class="container-fluid main">
             <router-view></router-view>
         </div>
+        <footer class="footer bg-dark">
+            <div class="footer-content">
+                <b>Owned by NULP. {{ (new Date).getFullYear() }}.</b>
+                <a target="_blank"
+                   href="https://www.linkedin.com/in/stepan-skopivskyi-187687140">By @Skopa.</a>
+            </div>
+        </footer>
         <notifications group="app" position="bottom left" :speed="500"></notifications>
 
         <div v-bind:class="{'loader-container': loader}">
@@ -133,5 +143,17 @@
 <style scoped>
     .pointer {
         cursor: pointer;
+    }
+
+    .main {
+        min-height: calc(100vh - 150px);
+    }
+
+    .footer {
+        margin-top: 30px;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        color: lightgray;
     }
 </style>
