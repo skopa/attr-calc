@@ -13,13 +13,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property float score
  * @property Collection parameters
  * @property User user
+ * @property string description
  */
 class Project extends Model
 {
     protected $scoreDecimals = 8;
 
     protected $fillable = [
-        'name'
+        'name', 'description'
     ];
 
     protected $appends = [

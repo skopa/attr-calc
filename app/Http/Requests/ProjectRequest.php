@@ -25,6 +25,7 @@ class ProjectRequest extends FormRequest
     {
         return [
             'name' => 'string',
+            'description' => 'string',
             'parameters' => 'array'
         ];
     }

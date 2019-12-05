@@ -43,7 +43,8 @@ class ProjectController extends Controller
         /** @var Project $project */
         $project = $user->projects()
             ->create([
-                'name' => $request->get('name')
+                'name' => $request->get('name'),
+                'description' => $request->get('description', ''),
             ]);
 
         $project->parameters()
@@ -81,7 +82,8 @@ class ProjectController extends Controller
     public function update(ProjectRequest $request, Project $project)
     {
         $project->update([
-            'name' => $request->get('name')
+            'name' => $request->get('name'),
+            'description' => $request->get('description', '')
         ]);
 
         $project->parameters()

@@ -35,6 +35,7 @@ class ProjectResource extends JsonResource
             'id' => $this->project->id,
             'user' => $this->project->user,
             'name' => $this->project->name,
+            'description' => $this->project->description | '',
             'score' => $this->project->score,
             'parameters' => $this->parameters->map(function (Attribute $attribute) use ($projectParameters) {
                 return [

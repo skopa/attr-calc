@@ -15,6 +15,14 @@
                                placeholder="Project name" required type="text">
                     </div>
 
+                    <div class="form-group">
+                        <label for="description">Project description</label>
+                        <textarea class="form-control" id="description"
+                                  rows="3"
+                                  v-model="project.description"
+                                  placeholder="Project description" required type="text"></textarea>
+                    </div>
+
                     <h5>Parameters:</h5>
 
                     <div class="form-group row" v-for="parameter in project.parameters">
@@ -49,7 +57,8 @@
                 project: {
                     name: null,
                     score: null,
-                    parameters: []
+                    description: null,
+                    parameters: [],
                 }
             }
         },

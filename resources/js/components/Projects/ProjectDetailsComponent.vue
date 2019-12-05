@@ -10,6 +10,8 @@
                 <div class="card-body">
                     <h3>{{project.name || ''}}</h3>
                     <h5>Total score: {{project.score || 0}}</h5>
+                    <b>Project description:</b>
+                    <p>{{project.description}}</p>
                 </div>
 
                 <div class="table-responsive">
@@ -43,7 +45,8 @@
                 project: {
                     name: null,
                     score: null,
-                    parameters: []
+                    description: null,
+                    parameters: [],
                 }
             }
         },
