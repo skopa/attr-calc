@@ -18,7 +18,7 @@
                     <span class="nav-link pointer" v-on:click="logout">Logout</span>
                 </li>
                 <li class="nav-item" v-else>
-                    <a v-google-oauth="client_id" class="nav-link pointer">SigIn with Google</a>
+                    <a v-on:click="auth()" class="nav-link pointer">SigIn with Google</a>
                 </li>
             </ul>
         </nav>
@@ -47,14 +47,8 @@
 </template>
 
 <script>
-    import googleOauth from 'google-oauth-vue-directive'
-
     export default {
         name: "App",
-
-        directives: {
-            googleOauth
-        },
 
         data() {
             return {
@@ -65,8 +59,6 @@
         },
 
         created() {
-            this.client_id = document.getElementsByName('google-client-id')[0].getAttribute('value');
-
             this.axios.get('/api/user').then(response => {
                 this.user = response.data;
             });
@@ -95,47 +87,31 @@
         },
 
         methods: {
-            onGoogleAuthSuccess(googleAuth) {
-                googleAuth.signIn()
-                    .then(user => {
-                        return this.axios.post('/api/auth', {
-                            token: user.Zi.access_token
-                        });
-                    })
-                    .then(response => {
-                        this.user = response.data;
-                        this.$notify({
-                            group: 'app',
-                            type: 'success',
-                            title: 'Auth',
-                            text: 'Logged successful.'
-                        });
-                    })
-                    .catch(err => {
-                        this.$notify({
-                            group: 'app',
-                            type: 'error',
-                            title: 'Auth',
-                            text: err.toString()
-                        });
-                        console.warn();
-                    });
-            },
-            onGoogleAuthError(err) {
-                console.warn(':oauth-error:', error)
-                // you can do stuff here with the received error.
+            onError(err) {
+                this.$notify({group: 'app', type: 'error', title: 'Auth', text: err.toString()});
+                console.warn(err);
             },
             logout() {
                 this.axios.post('/api/logout').then(() => {
                     this.user = null;
-                    this.$notify({
-                        group: 'app',
-                        type: 'success',
-                        title: 'Logout',
-                        text: 'Logout successful.'
-                    });
+                    this.$notify({group: 'app', type: 'success', title: 'Logout', text: 'Logout successful.'});
                 });
             },
+            login(token) {
+                this.axios.post('/api/auth', {token})
+                    .then(response => {
+                        this.user = response.data;
+                        this.$notify({group: 'app', type: 'success', title: 'Auth', text: 'Logged successful.'});
+                    })
+                    .catch(err => this.onError(err));
+            },
+            auth() {
+                Vue.googleAuth().directAccess();
+                Vue.googleAuth().signIn(
+                    user => this.login(user.getAuthResponse().access_token),
+                    err => this.onError(err)
+                );
+            }
         }
     }
 </script>

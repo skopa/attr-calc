@@ -5,6 +5,7 @@ import axios from 'axios';
 import Vue from 'vue'
 import App from './App.vue';
 import routes from './routes';
+import GoogleAuth from 'vue-google-oauth'
 
 require('./bootstrap');
 
@@ -12,6 +13,8 @@ window.Vue = require('vue');
 
 Vue.use(VueRouter);
 Vue.use(Notifications);
+Vue.use(GoogleAuth, { client_id: document.getElementsByName('google-client-id')[0].getAttribute('value') })
+Vue.googleAuth().load()
 
 const axiosInstance = axios.create({
     headers: {
