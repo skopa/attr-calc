@@ -1,0 +1,37 @@
+version: "3.3"
+
+services:
+
+  web:
+    container_name: 'attr-calc_web'
+    image: hitalos/laravel:latest
+    ports:
+      - 8080:80
+    volumes:
+      - ./:/var/www
+    links:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: attr_calc
+      DB_USERNAME: root
+      DB_PASSWORD: p455w0rd
+      DB_CONNECTION: mysql
+
+  db:
+    container_name: 'attr-calc_db'
+    image: mysql:8
+    ports:
+      - 33063:3306
+    expose:
+      - 33063
+    environment:
+      # with mysql
+      PMA_HOST: db
+      MYSQL_DATABASE: attr_calc
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: p455w0rd
+      MYSQL_ROOT_PASSWORD: p455w0rd
+    volumes:
+      - ./storage/database:/var/lib/mysql
