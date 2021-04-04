@@ -4,58 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProjectRequest;
 use App\Http\Resources\ProjectResource;
-use App\Models\Attribute;
 use App\Models\Project;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Exception;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
-        $projects = Project::query()
-            ->with('parameters')
-            //->paginate(20);
-            ->get();
-
-        return response()->json([
-            'data' => $projects,
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param ProjectRequest $request
-     * @return ProjectResource
-     */
-    public function store(ProjectRequest $request)
-    {
-        /** @var User $user */
-        $user = Auth::user();
-
-        /** @var Project $project */
-        $project = $user->projects()
-            ->create([
-                'name' => $request->get('name'),
-                'description' => $request->get('description', ''),
-            ]);
-
-        $project->parameters()
-            ->sync($this->getParameters($request));
-
-        $project->refresh();
-
-        return ProjectResource::make((object)[
-            'parameters' => Attribute::all(),
-            'project' => $project,
-        ]);
+        return ProjectResource::collection(
+            Project::query()->paginate(25)
+        );
     }
 
     /**
@@ -64,12 +30,27 @@ class ProjectController extends Controller
      * @param Project $project
      * @return ProjectResource
      */
-    public function show(Project $project)
+    public function show(Project $project): ProjectResource
     {
-        return ProjectResource::make((object)[
-            'parameters' => Attribute::all(),
-            'project' => $project,
-        ]);
+        return ProjectResource::make($project);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param ProjectRequest $request
+     * @return ProjectResource
+     */
+    public function store(ProjectRequest $request): ProjectResource
+    {
+        /** @var User $user */
+        $user = $request->user();
+        /** @var Project $project */
+        $project = $user->projects()->create($request->validated());
+        $project->costMethodCalculation()->create();
+        $project->competitiveMethodCalculation()->create();
+        $project->revenueMethodCalculation()->create();
+        return ProjectResource::make($project);
     }
 
     /**
@@ -79,50 +60,22 @@ class ProjectController extends Controller
      * @param Project $project
      * @return ProjectResource
      */
-    public function update(ProjectRequest $request, Project $project)
+    public function update(ProjectRequest $request, Project $project): ProjectResource
     {
-        $project->update([
-            'name' => $request->get('name'),
-            'description' => $request->get('description', '')
-        ]);
-
-        $project->parameters()
-            ->sync($this->getParameters($request));
-
-        $project->refresh();
-
-        return ProjectResource::make((object)[
-            'parameters' => Attribute::all(),
-            'project' => $project,
-        ]);
+        $project->update($request->validated());
+        return ProjectResource::make($project);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Project $project
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
-    public function destroy(Project $project)
+    public function destroy(Project $project): Response
     {
         $project->delete();
-
         return response(null, 204);
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Support\Collection
-     */
-    protected function getParameters(Request $request)
-    {
-        return collect($request->get('parameters'))
-            ->keyBy('id')
-            ->map(function ($item) {
-                return [
-                    'value' => $item['value']
-                ];
-            });
     }
 }

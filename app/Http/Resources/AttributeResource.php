@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Attribute;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -12,26 +13,21 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class AttributeResource extends JsonResource
 {
-    public static $wrap = false;
-
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
-            'id' => $this->resource->id,
-            'name' => $this->resource->name,
-            'parameter' => $this->resource->parameter,
+            'path' => $this->resource->path,
+            'key' => $this->resource->key,
             'min' => $this->resource->min,
             'max' => $this->resource->max,
-            'value' => $this->when(
-                $this->resource->min == $this->resource->max,
-                $this->resource->min
-            )
+            'name' => $this->resource->name,
+            'order' => $this->resource->order
         ];
     }
 }

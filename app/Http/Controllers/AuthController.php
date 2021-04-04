@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -14,36 +16,32 @@ class AuthController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return UserResource
      */
-    public function login(Request $request)
+    public function login(Request $request): UserResource
     {
         /** @var GoogleProvider $driver */
         $driver = Socialite::driver('google');
         $gUser = $driver->userFromToken($request->get('token'));
 
         /** @var User $user */
-        $user = User::query()
-            ->firstOrCreate([
-                'email' => $gUser->getEmail()
-            ], [
-                'email' => $gUser->getEmail(),
-                'name' => $gUser->getName(),
-                'password' => Str::uuid()
-            ]);
+        $user = User::query()->updateOrCreate(
+            ['email' => $gUser->getEmail()],
+            ['name' => $gUser->getName(), 'password' => Str::uuid()]
+        );
 
         Auth::login($user);
 
-        return response()->json($user);
+        return UserResource::make($user);
     }
 
     /**
      * Handle the incoming request.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function logout()
+    public function logout(): JsonResponse
     {
         Auth::logout();
 

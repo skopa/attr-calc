@@ -3,23 +3,74 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 /**
  * Class Attribute
  * @package App\Models
- * @property int id
- * @property string name
- * @property float parameter
- * @property float min
- * @property float max
- * @property-read ProjectAttribute pivot
+ * @property-read string path
+ * @property-read string key
+ * @property-read string name
+ * @property-read string type
+ * @property-read float min
+ * @property-read float max
+ * @property-read bool min_strict
+ * @property-read bool max_strict
+ * @property-read string custom_rules
+ * @property-read integer order
  */
 class Attribute extends Model
 {
-    use SoftDeletes;
+    public $incrementing = false;
 
-    protected $fillable = [
-        'name', 'parameter', 'min', 'max'
-    ];
+    protected $primaryKey = 'path';
+    protected $keyType = 'string';
+    protected $fillable = ['path', 'name', 'type', 'min', 'max', 'min_strict', 'max_strict', 'custom_rules'];
+
+    public function getRules(): string
+    {
+        if ($this->type === 'array') {
+            return $this->getArrayRules();
+        }
+
+        $rules = [$this->type];
+
+        if ($this->min) {
+            $rules[] = ($this->min_strict ? 'gt' : 'gte') . ':' . $this->min;
+        }
+
+        if ($this->max) {
+            $rules[] = ($this->max_strict ? 'lt' : 'lte') . ':' . $this->max;
+        }
+
+        if ($this->custom_rules) {
+            $rules[] = $this->custom_rules;
+        }
+
+        return implode('|', $rules);
+    }
+
+    public function getKeyAttribute(): string
+    {
+        return Str::afterLast($this->path, '.');
+    }
+
+    private function getArrayRules(): string
+    {
+        $rules = [$this->type];
+
+        if ($this->min) {
+            $rules[] = 'min:' . $this->min;
+        }
+
+        if ($this->max) {
+            $rules[] = 'max:' . $this->max;
+        }
+
+        if ($this->custom_rules) {
+            $rules[] = $this->custom_rules;
+        }
+
+        return implode('|', $rules);
+    }
 }

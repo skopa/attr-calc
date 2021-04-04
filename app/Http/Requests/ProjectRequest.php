@@ -6,12 +6,14 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ProjectRequest extends FormRequest
 {
+    use AttributeValidationTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,12 +23,13 @@ class ProjectRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name' => 'string',
-            'description' => 'string',
-            'parameters' => 'array'
+            'name' => 'required|string|min:5',
+            'description' => 'nullable|string',
+            'ready_level' => 'required|' . $this->attributeRules('project_ready_level'),
+            'has_competitors' => 'required|boolean'
         ];
     }
 }

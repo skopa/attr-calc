@@ -60,7 +60,7 @@
 
         created() {
             this.axios.get('/api/user').then(response => {
-                this.user = response.data;
+                this.user = response.data.data;
             });
 
             this.axios.interceptors.request.use(
@@ -100,7 +100,7 @@
             login(token) {
                 this.axios.post('/api/auth', {token})
                     .then(response => {
-                        this.user = response.data;
+                        this.user = response.data.data;
                         this.$notify({group: 'app', type: 'success', title: 'Auth', text: 'Logged successful.'});
                     })
                     .catch(err => this.onError(err));

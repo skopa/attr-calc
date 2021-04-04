@@ -6,19 +6,25 @@ import Vue from 'vue'
 import App from './App.vue';
 import routes from './routes';
 import GoogleAuth from 'vue-google-oauth'
+import BootstrapVue from 'bootstrap-vue'
 
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.env = {
+    google_client_id: document.getElementsByName('google-client-id')[0].getAttribute('content'),
+    csrf_token: document.getElementsByName('csrf-token')[0].getAttribute('content')
+}
 
+Vue.use(BootstrapVue);
 Vue.use(VueRouter);
 Vue.use(Notifications);
-Vue.use(GoogleAuth, { client_id: document.getElementsByName('google-client-id')[0].getAttribute('value') })
-Vue.googleAuth().load()
+Vue.use(GoogleAuth, {client_id: window.env.google_client_id});
+Vue.googleAuth().load().then();
 
 const axiosInstance = axios.create({
     headers: {
-        'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('value'),
+        'X-CSRF-TOKEN': window.env.csrf_token,
         'Accept': 'application/json'
     }
 });
