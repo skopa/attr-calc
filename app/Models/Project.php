@@ -2,66 +2,60 @@
 
 namespace App\Models;
 
+use App\Models\Methods\CompetitiveMethodCalculation;
+use App\Models\Methods\CostMethodCalculation;
+use App\Models\Methods\RevenueMethodCalculation;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Project
  * @package App\Models
  * @property int id
  * @property string name
- * @property float score
+ * @property string description
+ * @property float ready_level
+ * @property boolean has_competitors
  * @property Collection parameters
  * @property User user
- * @property string description
+ * @property CompetitiveMethodCalculation|null competitiveMethodCalculation
+ * @property CostMethodCalculation|null costMethodCalculation
+ * @property RevenueMethodCalculation|null revenueMethodCalculation
  */
 class Project extends Model
 {
+    use SoftDeletes;
+
     protected $scoreDecimals = 8;
 
     protected $fillable = [
-        'name', 'description'
-    ];
-
-    protected $appends = [
-        'score'
+        'name', 'description', 'ready_level', 'has_competitors'
     ];
 
     protected $with = [
-        'user'
+        'user', 'competitiveMethodCalculation', 'costMethodCalculation', 'revenueMethodCalculation'
     ];
 
-
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function projectParameters()
+    public function competitiveMethodCalculation(): HasOne
     {
-        return $this->hasMany(ProjectAttribute::class);
+        return $this->hasOne(CompetitiveMethodCalculation::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function parameters()
+    public function costMethodCalculation(): HasOne
     {
-        return $this->belongsToMany(Attribute::class, 'project_attribute')
-            ->withPivot(['id', 'value', 'created_at', 'updated_at'])
-            ->using(ProjectAttribute::class);
+        return $this->hasOne(CostMethodCalculation::class);
     }
 
-    public function getScoreAttribute()
+    public function revenueMethodCalculation(): HasOne
     {
-        return round(
-            $this->parameters->sum(function ($attr) {
-                return $attr->pivot->value * $attr->parameter;
-            }),
-            $this->scoreDecimals
-        );
+        return $this->hasOne(RevenueMethodCalculation::class);
     }
 }

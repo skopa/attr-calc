@@ -19,27 +19,19 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::get('projects', 'ProjectController@index');
     Route::get('projects/{project}', 'ProjectController@show');
-    Route::get('attributes', 'AttributeController@index');
+    Route::get('attributes', 'AttributeController');
 
     Route::group(['middleware' => 'auth'], function () {
 
         Route::post('logout', 'AuthController@logout');
 
-        Route::get('user', function (\Illuminate\Http\Request $request) {
-            return response()->json($request->user());
-        });
-
-        Route::apiResource('attributes', 'AttributeController', [
-            'except' => ['index'],
-        ]);
+        Route::get('user', 'UserController');
 
         Route::apiResource('projects', 'ProjectController', [
             'except' => ['index', 'show'],
         ]);
     });
-
 });
 
-Route::get('/{any?}', function () {
-    return view('home');
-})->where('any', '.*');
+Route::view('/{any?}','home')
+    ->where('any', '.*');

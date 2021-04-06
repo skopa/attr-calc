@@ -59,9 +59,9 @@
         },
 
         created() {
-            this.axios.get('/api/user').then(response => {
-                this.user = response.data.data;
-            });
+            this.axios.get('/api/user')
+                .then(response => this.user = response.data.data)
+                .catch(() => console.info('Unauthorized.'));
 
             this.axios.interceptors.request.use(
                 conf => {
