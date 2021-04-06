@@ -2,51 +2,40 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Attribute;
+use App\Http\Resources\Methods\CostMethodResource;
+use App\Http\Resources\Methods\RevenueMethodResource;
 use App\Models\Project;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Collection;
 
 /**
  * Class ProjectResource
  * @package App\Http\Resources
- * @property-read Project project
- * @property-read Collection parameters
+ * @property-read Project resource
  */
 class ProjectResource extends JsonResource
 {
-    public static $wrap = false;
-
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
-        $projectParameters = $this->project->parameters
-            ->keyBy('id')
-            ->map(function (Attribute $attribute) {
-                return $attribute->pivot->value;
-            });
-
         return [
-            'id' => $this->project->id,
-            'user' => $this->project->user,
-            'name' => $this->project->name,
-            'description' => $this->project->description | '',
-            'score' => $this->project->score,
-            'parameters' => $this->parameters->map(function (Attribute $attribute) use ($projectParameters) {
-                return [
-                    'id' => $attribute->id,
-                    'name' => $attribute->name,
-                    'value' => $projectParameters->get($attribute->id, 0),
-                    'parameter' => $attribute->parameter,
-                    'min' => $attribute->min,
-                    'max' => $attribute->max,
-                ];
-            })
+            'id' => $this->resource->id,
+            'name' => $this->resource->name,
+            'description' => $this->resource->description,
+            'has_competitors' => $this->resource->has_competitors,
+            'ready_level' => $this->resource->ready_level,
+
+            'cost_method' => CostMethodResource::make($this->resource->costMethodCalculation),
+            'revenue_method' => RevenueMethodResource::make($this->resource->revenueMethodCalculation),
+
+//            'competitive_method' => [],
+
+            'user' => UserResource::make($this->resource->user),
         ];
     }
 }

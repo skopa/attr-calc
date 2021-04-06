@@ -30,6 +30,9 @@ Route::group(['prefix' => 'api'], function () {
         Route::apiResource('projects', 'ProjectController', [
             'except' => ['index', 'show'],
         ]);
+
+        Route::put('projects/{project}/cost-method', 'ProjectMethodController@costMethod');
+        Route::put('projects/{project}/revenue-method', 'ProjectMethodController@revenueMethod');
     });
 });
 

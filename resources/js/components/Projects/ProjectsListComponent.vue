@@ -11,10 +11,12 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <td class="id">Id</td>
-                            <td class="name">Name</td>
-                            <td class="value">Score</td>
-                            <td></td>
+                            <th class="id">Id</th>
+                            <th class="name">Name</th>
+                            <th class="value">Cost Method</th>
+                            <th class="value">Competitive Method</th>
+                            <th class="value">Revenue Method</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -25,7 +27,9 @@
                                 <br>
                                 <small>Created by: {{project.user.name}}</small>
                             </td>
-                            <td>{{project.score || 0}}</td>
+                            <td>{{project.cost_method_calculated || 0}}</td>
+                            <td>{{project.competitive_method_calculated || 0}}</td>
+                            <td>{{project.revenue_method_calculated || 0}}</td>
                             <td class="control">
                                 <div>
                                     <a class="btn btn-outline-primary btn-sm" v-on:click="view(project.id)">View</a>
@@ -57,7 +61,7 @@
         methods: {
             create: function (id) {
                 return this.$router.push({
-                    name: 'edit-project',
+                    name: 'project-edit',
                     params: {id}
                 });
             },
@@ -93,5 +97,11 @@
 </script>
 
 <style scoped>
-
+.table th {
+  vertical-align: revert;
+}
+.value {
+  max-width: 60px;
+  line-height: 1.2em;
+}
 </style>
