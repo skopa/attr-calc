@@ -7,10 +7,11 @@
         <input class="form-control"
                placeholder="Parameter value"
                v-bind:id="`parameter-${parameter.key}`"
-               v-bind:min="parameter.min"
-               v-bind:max="parameter.max"
                v-model="value.cost_method.sum[parameter.key]"
+               v-bind:class="{ 'is-invalid': error(parameter.key) }"
+               v-on:change="clear(parameter.key)"
                type="number" step="any" required>
+        <div class="invalid-feedback" v-for="err of error(parameter.key)">{{ err }}</div>
       </div>
     </div>
     <div class="form-group row" v-if="parameters.percentage_of_cost">
@@ -20,16 +21,19 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-percentage_of_cost"
-               v-bind:min="parameters.percentage_of_cost.min"
-               v-bind:max="parameters.percentage_of_cost.max"
                v-model="value.cost_method.percentage_of_cost"
+               v-bind:class="{ 'is-invalid': error('percentage_of_cost') }"
+               v-on:change="clear('percentage_of_cost')"
                type="number" step="any" required>
         <div class="input-group-append">
           <span class="input-group-text">%</span>
         </div>
+        <div class="invalid-feedback" v-for="err of error('percentage_of_cost')">{{ err }}</div>
       </div>
     </div>
+
     <span class="horizontal-line"></span>
+
     <div class="d-flex mt-3">
       <span class="ml-0 mr-auto font-weight-bold">Обрахована вартість: {{ cost }}</span>
       <button class="btn btn-outline-success btn-sm ml-auto mr-0" type="submit">Save Method</button>
@@ -42,7 +46,9 @@ export default {
   name: "CostMethodComponent",
   props: ['value', 'parameters'],
   data: function () {
-    return {}
+    return {
+      errors: {}
+    }
   },
   computed: {
     attributes: function () {
@@ -55,8 +61,18 @@ export default {
     }
   },
   methods: {
+    error: function (field) {
+      return _.get(this.errors, field, null);
+    },
+    clear: function (field) {
+      return _.set(this.errors, field, null);
+    },
     save: function () {
       const request = this.axios.put(`/api/projects/${this.$route.params.id}/cost-method`, this.value.cost_method);
+
+      request.catch(response => {
+        this.errors = response.response.data.errors;
+      });
 
       request.then(({data}) => {
         this.$emit('input', this.value = data.data);

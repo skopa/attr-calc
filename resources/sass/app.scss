@@ -46,3 +46,12 @@
 .no-margin {
   margin: 0;
 }
+
+.input-group:not(.has-validation) > .is-invalid + .input-group-append:not(:last-child) > .input-group-text {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+select.form-control.is-invalid {
+  background-position: right calc(1em + 0.1875rem) center;
+}

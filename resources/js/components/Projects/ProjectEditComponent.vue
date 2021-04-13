@@ -12,28 +12,38 @@
           <form v-on:submit="save()" v-on:submit.prevent>
 
             <div class="form-group">
-              <label for="name">Project name</label>
+              <label for="name">{{ parameters.project_name.name }}</label>
               <input class="form-control" id="name"
+                     v-bind:placeholder="parameters.project_name.name"
                      v-model="project.name"
-                     placeholder="Project name" required type="text">
+                     v-bind:class="{ 'is-invalid': error('name') }"
+                     v-on:change="clear('name')"
+                     type="text">
+              <div class="invalid-feedback" v-for="err of error('name')">{{ err }}</div>
             </div>
 
             <div class="form-group">
-              <label for="description">Project description</label>
+              <label for="description">{{ parameters.project_description.name }}</label>
               <textarea class="form-control" id="description"
                         rows="3"
+                        v-bind:placeholder="parameters.project_description.name"
                         v-model="project.description"
-                        placeholder="Project description" type="text"></textarea>
+                        v-bind:class="{ 'is-invalid': error('description') }"
+                        v-on:change="clear('description')"
+                        type="text"></textarea>
+              <div class="invalid-feedback" v-for="err of error('description')">{{ err }}</div>
             </div>
 
             <div class="form-group">
               <label for="ready_level">{{ parameters.project_ready_level.name }}</label>
               <input class="form-control" id="ready_level"
                      step="0.0001"
+                     v-bind:placeholder="parameters.project_ready_level.name"
                      v-model="project.ready_level"
-                     v-bind:min="parameters.project_ready_level.min"
-                     v-bind:max="parameters.project_ready_level.max"
-                     v-bind:placeholder="parameters.project_ready_level.name" required type="number">
+                     v-bind:class="{ 'is-invalid': error('ready_level') }"
+                     v-on:change="clear('ready_level')"
+                     type="number">
+              <div class="invalid-feedback" v-for="err of error('ready_level')">{{ err }}</div>
             </div>
 
             <div class="form-group custom-control custom-switch">
@@ -47,13 +57,18 @@
             </div>
 
           </form>
+        </div>
+      </div>
 
-          <b-tabs class="mt-3" content-class="mt-3" justified v-if="!isNew()">
+      <div class="card card-default mt-3">
+        <div class="">
+          <b-tabs card fill v-if="!isNew()">
             <b-tab title="Витратний метод" active>
               <cost-method v-model="project" v-bind:parameters="parameters.cost_method"></cost-method>
             </b-tab>
-            <b-tab title="Second" v-bind:disabled="project.ready_level >= 4">
-              <competitive-method v-model="project" v-bind:parameters="parameters.competitive_method"></competitive-method>
+            <b-tab title="Конкурентний метод" v-bind:disabled="project.ready_level >= 4">
+              <competitive-method v-model="project"
+                                  v-bind:parameters="parameters.competitive_method"></competitive-method>
             </b-tab>
             <b-tab title="Дохідний метод" v-bind:disabled="!project.has_competitors">
               <revenue-method v-model="project" v-bind:parameters="parameters.revenue_method"></revenue-method>
@@ -90,17 +105,26 @@ export default {
         competitive_method: {}
       },
       parameters: {
+        project_name: {},
+        project_description: {},
         project_ready_level: {},
         has_competitors: {},
         cost_method: {},
         revenue_method: {}
-      }
+      },
+      errors: {}
     }
   },
   mounted() {
     this.getData();
   },
   methods: {
+    error: function (field) {
+      return _.get(this.errors, field, null);
+    },
+    clear: function (field) {
+      return _.set(this.errors, field, null);
+    },
     getData: function () {
       const processAttributes = (response) => {
         const data = response.data.data || [];
@@ -124,6 +148,10 @@ export default {
       const request = this.isNew()
           ? this.axios.post('/api/projects', this.project)
           : this.axios.put('/api/projects/' + this.$route.params.id, this.project);
+
+      request.catch(response => {
+        this.errors = response.response.data.errors;
+      });
 
       request.then(response => {
         this.project = _.assign(this.project, response.data.data);
