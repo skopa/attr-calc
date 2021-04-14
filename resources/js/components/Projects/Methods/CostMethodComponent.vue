@@ -5,30 +5,32 @@
              class="col-sm-7 col-form-label">{{ parameter.name }}:</label>
       <div class="col-sm-5">
         <input class="form-control"
-               placeholder="Parameter value"
                v-bind:id="`parameter-${parameter.key}`"
+               v-bind:placeholder="parameter.name"
                v-model="value.cost_method.sum[parameter.key]"
-               v-bind:class="{ 'is-invalid': error(parameter.key) }"
-               v-on:change="clear(parameter.key)"
-               type="number" step="any" required>
-        <div class="invalid-feedback" v-for="err of error(parameter.key)">{{ err }}</div>
+               v-bind:class="{ 'is-invalid': error('sum.' + parameter.key) }"
+               v-on:change="clear('sum.' + parameter.key)"
+               type="number" step="any">
+        <div class="invalid-feedback" v-for="err of error('sum.' + parameter.key)">{{ err }}</div>
       </div>
     </div>
     <div class="form-group row" v-if="parameters.percentage_of_cost">
       <label for="parameter-percentage_of_cost"
              class="col-sm-7 col-form-label">{{ parameters.percentage_of_cost.name }}:</label>
-      <div class="col-sm-5 input-group">
-        <input class="form-control"
-               placeholder="Parameter value"
-               id="parameter-percentage_of_cost"
-               v-model="value.cost_method.percentage_of_cost"
-               v-bind:class="{ 'is-invalid': error('percentage_of_cost') }"
-               v-on:change="clear('percentage_of_cost')"
-               type="number" step="any" required>
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
+      <div class="col-md-5">
+        <div class="input-group">
+          <input class="form-control"
+                 id="parameter-percentage_of_cost"
+                 v-model="value.cost_method.percentage_of_cost"
+                 v-bind:placeholder="parameters.percentage_of_cost.name"
+                 v-bind:class="{ 'is-invalid': error('percentage_of_cost') }"
+                 v-on:change="clear('percentage_of_cost')"
+                 type="number" step="any">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
         </div>
-        <div class="invalid-feedback" v-for="err of error('percentage_of_cost')">{{ err }}</div>
+      <div class="invalid-feedback d-block" v-for="err of error('percentage_of_cost')">{{ err }}</div>
       </div>
     </div>
 

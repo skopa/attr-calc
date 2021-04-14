@@ -8,11 +8,12 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-own_quality_value"
+               v-bind:placeholder="parameters.own_quality_value.name"
                v-model="value.competitive_method.values.own_quality_value"
-               v-bind:class="{ 'is-invalid': error('own_quality_value') }"
-               v-on:change="clear('own_quality_value')"
+               v-bind:class="{ 'is-invalid': error('values.own_quality_value') }"
+               v-on:change="clear('values.own_quality_value')"
                type="number" step="any">
-        <div class="invalid-feedback" v-for="err of error('own_quality_value')">{{ err }}</div>
+        <div class="invalid-feedback" v-for="err of error('values.own_quality_value')">{{ err }}</div>
       </div>
     </div>
 
@@ -23,6 +24,7 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-analog_quality_value"
+               v-bind:placeholder="parameters.analog_quality_value.name"
                v-model="value.competitive_method.values.analog_quality_value"
                v-bind:class="{ 'is-invalid': error('values.analog_quality_value') }"
                v-on:change="clear('values.analog_quality_value')"
@@ -38,6 +40,7 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-weight_factor"
+               v-bind:placeholder="parameters.weight_factor.name"
                v-model="value.competitive_method.values.weight_factor"
                v-bind:class="{ 'is-invalid': error('values.weight_factor') }"
                v-on:change="clear('values.weight_factor')"
@@ -53,6 +56,7 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-analog_implementation_costs"
+               v-bind:placeholder="parameters.analog_implementation_costs.name"
                v-model="value.competitive_method.values.analog_implementation_costs"
                v-bind:class="{ 'is-invalid': error('values.analog_implementation_costs') }"
                v-on:change="clear('values.analog_implementation_costs')"
@@ -68,6 +72,7 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-own_implementation_costs"
+               v-bind:placeholder="parameters.own_implementation_costs.name"
                v-model="value.competitive_method.values.own_implementation_costs"
                v-bind:class="{ 'is-invalid': error('values.own_implementation_costs') }"
                v-on:change="clear('values.own_implementation_costs')"
@@ -83,6 +88,7 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-analog_support_cost"
+               v-bind:placeholder="parameters.analog_support_cost.name"
                v-model="value.competitive_method.values.analog_support_cost"
                v-bind:class="{ 'is-invalid': error('values.analog_support_cost') }"
                v-on:change="clear('values.analog_support_cost')"
@@ -98,6 +104,7 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-own_support_cost"
+               v-bind:placeholder="parameters.own_support_cost.name"
                v-model="value.competitive_method.values.own_support_cost"
                v-bind:class="{ 'is-invalid': error('values.own_support_cost') }"
                v-on:change="clear('values.own_support_cost')"
@@ -209,12 +216,13 @@
             <input class="form-control"
                    placeholder="Parameter value"
                    v-bind:id="`parameter-${idx}-name`"
+                   v-bind:placeholder="parameters.parameters.name.name"
                    v-model="value.competitive_method.parameters[idx]['name']"
                    v-bind:class="{ 'is-invalid': error('parameters.' + idx + '.name') }"
                    v-on:change="clear('parameters.' + idx + '.name')"
                    type="text" step="any">
-            <div class="invalid-feedback" v-for="err of error('parameters.' + idx + '.name')">{{ err }}</div>
           </div>
+          <div class="invalid-feedback d-block" v-for="err of error('parameters.' + idx + '.name')">{{ err }}</div>
         </div>
 
         <div class="col-6 col-xl-4 form-group">
@@ -249,12 +257,13 @@
             <input class="form-control"
                    placeholder="Parameter value"
                    v-bind:id="`period-${idx}-q_value`"
+                   v-bind:placeholder="parameters.parameters.q_value.name"
                    v-model="value.competitive_method.parameters[idx]['q_value']"
                    v-bind:class="{ 'is-invalid': error('parameters.' + idx + '.q_value') }"
                    v-on:change="clear('parameters.' + idx + '.q_value')"
                    type="number" step="any">
-            <div class="invalid-feedback" v-for="err of error('parameters.' + idx + '.q_value')">{{ err }}</div>
           </div>
+          <div class="invalid-feedback d-block" v-for="err of error('parameters.' + idx + '.q_value')">{{ err }}</div>
         </div>
 
         <div class="col-6 col-xl-4 form-group">
@@ -264,12 +273,13 @@
             <input class="form-control"
                    placeholder="Parameter value"
                    v-bind:id="`period-${idx}-analog_value`"
+                   v-bind:placeholder="parameters.parameters.analog_value.name"
                    v-model="value.competitive_method.parameters[idx]['analog_value']"
                    v-bind:class="{ 'is-invalid': error('parameters.' + idx + '.analog_value') }"
                    v-on:change="clear('parameters.' + idx + '.analog_value')"
                    type="number" step="any">
-            <div class="invalid-feedback" v-for="err of error('parameters.' + idx + '.analog_value')">{{ err }}</div>
           </div>
+          <div class="invalid-feedback d-block" v-for="err of error('parameters.' + idx + '.analog_value')">{{ err }}</div>
         </div>
 
         <div class="col-6 col-xl-4 form-group">
@@ -279,12 +289,13 @@
             <input class="form-control"
                    placeholder="Parameter value"
                    v-bind:id="`period-${idx}-own_value`"
+                   v-bind:placeholder="parameters.parameters.own_value.name"
                    v-model="value.competitive_method.parameters[idx]['own_value']"
                    v-bind:class="{ 'is-invalid': error('parameters.' + idx + '.own_value') }"
                    v-on:change="clear('parameters.' + idx + '.own_value')"
                    type="number" step="any">
-            <div class="invalid-feedback" v-for="err of error('parameters.' + idx + '.own_value')">{{ err }}</div>
           </div>
+          <div class="invalid-feedback d-block" v-for="err of error('parameters.' + idx + '.own_value')">{{ err }}</div>
         </div>
       </div>
 

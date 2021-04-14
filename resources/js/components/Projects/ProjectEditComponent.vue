@@ -123,7 +123,7 @@ export default {
       return _.get(this.errors, field, null);
     },
     clear: function (field) {
-      return _.set(this.errors, field, null);
+      this.errors = _.omit(this.errors, [field]);
     },
     getData: function () {
       const processAttributes = (response) => {
@@ -166,7 +166,7 @@ export default {
         return this.$router.push({
           name: 'project-edit',
           params: {id: this.project.id}
-        });
+        }).catch(() => {});
       });
     },
     view: function () {

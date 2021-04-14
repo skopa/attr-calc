@@ -3,18 +3,21 @@
     <div class="form-group row" v-if="parameters.discount_rate">
       <label for="parameter-percentage_of_cost"
              class="col-sm-7 col-form-label">{{ parameters.discount_rate.name }}:</label>
-      <div class="col-sm-5 input-group">
-        <input class="form-control"
-               placeholder="Parameter value"
-               id="parameter-percentage_of_cost"
-               v-model="value.revenue_method.discount_rate"
-               v-bind:class="{ 'is-invalid': error('discount_rate') }"
-               v-on:change="clear('discount_rate')"
-               type="number" step="any" required>
-        <div class="input-group-append">
-          <span class="input-group-text">%</span>
+      <div class="col-sm-5">
+        <div class="input-group">
+          <input class="form-control"
+                 placeholder="Parameter value"
+                 id="parameter-percentage_of_cost"
+                 v-bind:placeholder="parameters.discount_rate.name"
+                 v-model="value.revenue_method.discount_rate"
+                 v-bind:class="{ 'is-invalid': error('discount_rate') }"
+                 v-on:change="clear('discount_rate')"
+                 type="number" step="any">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
         </div>
-        <div class="invalid-feedback" v-for="err of error('discount_rate')">{{ err }}</div>
+        <div class="invalid-feedback d-block" v-for="err of error('discount_rate')">{{ err }}</div>
       </div>
     </div>
 
@@ -27,14 +30,15 @@
                  class="col-form-label">{{ parameters.period.sales_volume.name }}:</label>
           <div class="input-group">
             <input class="form-control"
-                   placeholder="Parameter value"
                    v-bind:id="`period-${idx}-sales_volume`"
+                   v-bind:placeholder="parameters.period.sales_volume.name"
                    v-model="value.revenue_method.periods[idx]['sales_volume']"
                    v-bind:class="{ 'is-invalid': error('periods.' + idx + '.sales_volume') }"
                    v-on:change="clear('periods.' + idx + '.sales_volume')"
-                   type="number" step="any" required>
-            <div class="invalid-feedback" v-for="err of error('periods.' + idx + '.sales_volume')">{{ err }}</div>
+                   type="number" step="any">
           </div>
+          <div class="invalid-feedback d-block"
+               v-for="err of error('periods.' + idx + '.sales_volume')">{{ err }}</div>
         </div>
 
         <div class="col-6 col-xl-3 form-group">
@@ -42,13 +46,15 @@
                  class="col-form-label">{{ parameters.period.expected_price.name }}:</label>
           <div class="input-group">
             <input class="form-control"
-                   placeholder="Parameter value"
                    v-bind:id="`period-${idx}-expected_price`"
+                   v-bind:placeholder="parameters.period.expected_price.name"
                    v-model="value.revenue_method.periods[idx]['expected_price']"
                    v-bind:class="{ 'is-invalid': error('periods.' + idx + '.expected_price') }"
                    v-on:change="clear('periods.' + idx + '.expected_price')"
-                   type="number" step="any" required>
-            <div class="invalid-feedback" v-for="err of error('periods.' + idx + '.expected_price')">{{ err }}</div>
+                   type="number" step="any">
+          </div>
+          <div class="invalid-feedback d-block"
+               v-for="err of error('periods.' + idx + '.expected_price')">{{ err }}
           </div>
         </div>
 
@@ -57,13 +63,15 @@
                  class="col-form-label">{{ parameters.period.expected_cost.name }}:</label>
           <div class="input-group">
             <input class="form-control"
-                   placeholder="Parameter value"
                    v-bind:id="`period-${idx}-expected_cost`"
+                   v-bind:placeholder="parameters.period.expected_cost.name"
                    v-model="value.revenue_method.periods[idx]['expected_cost']"
                    v-bind:class="{ 'is-invalid': error('periods.' + idx + '.expected_cost') }"
                    v-on:change="clear('periods.' + idx + '.expected_cost')"
-                   type="number" step="any" required>
-            <div class="invalid-feedback" v-for="err of error('periods.' + idx + '.expected_cost')">{{ err }}</div>
+                   type="number" step="any">
+          </div>
+          <div class="invalid-feedback d-block"
+               v-for="err of error('periods.' + idx + '.expected_cost')">{{ err }}
           </div>
         </div>
 
@@ -72,16 +80,18 @@
                  class="col-form-label">{{ parameters.period.licensor_percentage.name }}:</label>
           <div class="input-group">
             <input class="form-control"
-                   placeholder="Parameter value"
                    v-bind:id="`period-${idx}-licensor_percentage`"
+                   v-bind:placeholder="parameters.period.licensor_percentage.name"
                    v-model="value.revenue_method.periods[idx]['licensor_percentage']"
                    v-bind:class="{ 'is-invalid': error('periods.' + idx + '.licensor_percentage') }"
                    v-on:change="clear('periods.' + idx + '.licensor_percentage')"
-                   type="number" step="any" required>
+                   type="number" step="any">
             <div class="input-group-append">
               <span class="input-group-text">%</span>
             </div>
-            <div class="invalid-feedback" v-for="err of error('periods.' + idx + '.licensor_percentage')">{{ err }}</div>
+          </div>
+          <div class="invalid-feedback d-block"
+               v-for="err of error('periods.' + idx + '.licensor_percentage')">{{ err }}
           </div>
         </div>
 
@@ -135,7 +145,7 @@ export default {
             * (parseFloat(period.expected_price || 0) - parseFloat(period.expected_cost || 0))
             * Math.pow(discount, idx + 1)
         );
-        const licensor = sum * (parseFloat(period.licensor_percentage) / 100);
+        const licensor = sum * (parseFloat(period.licensor_percentage) / 100) || 0;
         return {sum, licensor};
       })
     },

@@ -2,6 +2,7 @@
 
 namespace App\Models\Methods;
 
+use DivisionByZeroError;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -36,6 +37,10 @@ class CompetitiveMethodCalculation extends Model
         $parameters_cost = $this->parameters
             ->sortBy('index')
             ->reduce(function ($carry, CompetitiveMethodParameter $item) {
+                if (!$item->analog_value || !$item->own_value) {
+                    return $carry;
+                }
+
                 switch ($item->direction) {
                     case 1:
                         return $carry + ((float)$item->analog_value / (float)$item->own_value) * (float)$item->q_value;
@@ -48,28 +53,32 @@ class CompetitiveMethodCalculation extends Model
 
         $values = $this->values->pluck('value', 'key');
 
-        $num = (
-            $parameters_cost *
-            (
-                $values->get('own_quality_value', .0) /
-                $values->get('analog_quality_value', .0)
-            ) *
-            $values->get('weight_factor', .0) *
-            $values->get('k1', .0) *
-            $values->get('k2', .0) *
-            $values->get('k5', .0)
-        );
+        try {
+            $num = (
+                $parameters_cost *
+                (
+                    $values->get('own_quality_value', .0) /
+                    $values->get('analog_quality_value', .0)
+                ) *
+                $values->get('weight_factor', .0) *
+                $values->get('k1', .0) *
+                $values->get('k2', .0) *
+                $values->get('k5', .0)
+            );
 
-        $numth = (
-            $values->get('k3', .0) / (
-                $values->get('analog_implementation_costs', .0) /
-                $values->get('own_implementation_costs', .0)
-            ) +
-            $values->get('k4', .0) / (
-                $values->get('analog_support_cost', .0) /
-                $values->get('own_support_cost', .0)
-            )
-        );
+            $numth = (
+                $values->get('k3', .0) / (
+                    $values->get('analog_implementation_costs', .0) /
+                    $values->get('own_implementation_costs', .0)
+                ) +
+                $values->get('k4', .0) / (
+                    $values->get('analog_support_cost', .0) /
+                    $values->get('own_support_cost', .0)
+                )
+            );
+        } catch (\Exception $divisionByZeroError) {
+            return round(0, 2);
+        }
 
         return round($num / $numth, 2);
     }

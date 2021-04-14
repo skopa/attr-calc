@@ -38,6 +38,7 @@ class ProjectCostMethodRequest extends FormRequest
             'sum.defective_lose' => 'required|' . $this->attributeRules('cost_method.sum.defective_lose'),
             'sum.total_expenditures' => 'required|' . $this->attributeRules('cost_method.sum.total_expenditures'),
             'sum.general_expenses' => 'required|' . $this->attributeRules('cost_method.sum.general_expenses'),
+            'sum.other_production_expenses' => 'required|' . $this->attributeRules('cost_method.sum.other_production_expenses'),
             'sum.commercial_expenses' => 'required|' . $this->attributeRules('cost_method.sum.commercial_expenses'),
         ];
     }
