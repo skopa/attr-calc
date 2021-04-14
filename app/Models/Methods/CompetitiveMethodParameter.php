@@ -14,8 +14,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property float q_value
  * @property float analog_value
  * @property float own_value
+ * @property int index
  */
 class CompetitiveMethodParameter extends Model
 {
-    //
+    protected $fillable = ['name', 'direction', 'q_value', 'analog_value', 'own_value'];
 }

@@ -8,7 +8,7 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-own_quality_value"
-               v-model="value.competitive_method.own_quality_value"
+               v-model="value.competitive_method.values.own_quality_value"
                v-bind:class="{ 'is-invalid': error('own_quality_value') }"
                v-on:change="clear('own_quality_value')"
                type="number" step="any">
@@ -23,11 +23,11 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-analog_quality_value"
-               v-model="value.competitive_method.analog_quality_value"
-               v-bind:class="{ 'is-invalid': error('analog_quality_value') }"
-               v-on:change="clear('analog_quality_value')"
+               v-model="value.competitive_method.values.analog_quality_value"
+               v-bind:class="{ 'is-invalid': error('values.analog_quality_value') }"
+               v-on:change="clear('values.analog_quality_value')"
                type="number" step="any">
-        <div class="invalid-feedback" v-for="err of error('analog_quality_value')">{{ err }}</div>
+        <div class="invalid-feedback" v-for="err of error('values.analog_quality_value')">{{ err }}</div>
       </div>
     </div>
 
@@ -38,11 +38,11 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-weight_factor"
-               v-model="value.competitive_method.weight_factor"
-               v-bind:class="{ 'is-invalid': error('weight_factor') }"
-               v-on:change="clear('weight_factor')"
+               v-model="value.competitive_method.values.weight_factor"
+               v-bind:class="{ 'is-invalid': error('values.weight_factor') }"
+               v-on:change="clear('values.weight_factor')"
                type="number" step="any">
-        <div class="invalid-feedback" v-for="err of error('weight_factor')">{{ err }}</div>
+        <div class="invalid-feedback" v-for="err of error('values.weight_factor')">{{ err }}</div>
       </div>
     </div>
 
@@ -53,11 +53,11 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-analog_implementation_costs"
-               v-model="value.competitive_method.analog_implementation_costs"
-               v-bind:class="{ 'is-invalid': error('analog_implementation_costs') }"
-               v-on:change="clear('analog_implementation_costs')"
+               v-model="value.competitive_method.values.analog_implementation_costs"
+               v-bind:class="{ 'is-invalid': error('values.analog_implementation_costs') }"
+               v-on:change="clear('values.analog_implementation_costs')"
                type="number" step="any">
-        <div class="invalid-feedback" v-for="err of error('analog_implementation_costs')">{{ err }}</div>
+        <div class="invalid-feedback" v-for="err of error('values.analog_implementation_costs')">{{ err }}</div>
       </div>
     </div>
 
@@ -68,11 +68,11 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-own_implementation_costs"
-               v-model="value.competitive_method.own_implementation_costs"
-               v-bind:class="{ 'is-invalid': error('own_implementation_costs') }"
-               v-on:change="clear('own_implementation_costs')"
+               v-model="value.competitive_method.values.own_implementation_costs"
+               v-bind:class="{ 'is-invalid': error('values.own_implementation_costs') }"
+               v-on:change="clear('values.own_implementation_costs')"
                type="number" step="any">
-        <div class="invalid-feedback" v-for="err of error('own_implementation_costs')">{{ err }}</div>
+        <div class="invalid-feedback" v-for="err of error('values.own_implementation_costs')">{{ err }}</div>
       </div>
     </div>
 
@@ -83,11 +83,11 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-analog_support_cost"
-               v-model="value.competitive_method.analog_support_cost"
-               v-bind:class="{ 'is-invalid': error('analog_support_cost') }"
-               v-on:change="clear('analog_support_cost')"
+               v-model="value.competitive_method.values.analog_support_cost"
+               v-bind:class="{ 'is-invalid': error('values.analog_support_cost') }"
+               v-on:change="clear('values.analog_support_cost')"
                type="number" step="any">
-        <div class="invalid-feedback" v-for="err of error('analog_support_cost')">{{ err }}</div>
+        <div class="invalid-feedback" v-for="err of error('values.analog_support_cost')">{{ err }}</div>
       </div>
     </div>
 
@@ -98,11 +98,11 @@
         <input class="form-control"
                placeholder="Parameter value"
                id="parameter-own_support_cost"
-               v-model="value.competitive_method.own_support_cost"
-               v-bind:class="{ 'is-invalid': error('own_support_cost') }"
-               v-on:change="clear('own_support_cost')"
+               v-model="value.competitive_method.values.own_support_cost"
+               v-bind:class="{ 'is-invalid': error('values.own_support_cost') }"
+               v-on:change="clear('values.own_support_cost')"
                type="number" step="any">
-        <div class="invalid-feedback" v-for="err of error('own_support_cost')">{{ err }}</div>
+        <div class="invalid-feedback" v-for="err of error('values.own_support_cost')">{{ err }}</div>
       </div>
     </div>
 
@@ -113,16 +113,16 @@
              class="col-sm-7 col-form-label">{{ parameters.k1.name }}:</label>
       <div class="col-sm-5">
         <select class="form-control" id="parameter-k1"
-                v-model="value.competitive_method.k1"
-                v-bind:class="{ 'is-invalid': error('k1') }"
-                v-on:change="clear('k1')">
+                v-model="value.competitive_method.values.k1"
+                v-bind:class="{ 'is-invalid': error('values.k1') }"
+                v-on:change="clear('values.k1')">
           <option :value="1.2">Ринок розвивається швидкими темпами</option>
           <option :value="1.05">Ринок має позитивні тенденції змін до зростання</option>
           <option :value="1">Ринок стабільний</option>
           <option :value="0.95">Ринок спадає</option>
           <option :value="0.8">Ринок спадає швидкими темпами</option>
         </select>
-        <div class="invalid-feedback" v-for="err of error('k1')">{{ err }}</div>
+        <div class="invalid-feedback" v-for="err of error('values.k1')">{{ err }}</div>
       </div>
     </div>
 
@@ -131,16 +131,16 @@
              class="col-sm-7 col-form-label">{{ parameters.k2.name }}:</label>
       <div class="col-sm-5">
         <select class="form-control" id="parameter-k2"
-                v-model="value.competitive_method.k2"
-                v-bind:class="{ 'is-invalid': error('k2') }"
-                v-on:change="clear('k2')">
+                v-model="value.competitive_method.values.k2"
+                v-bind:class="{ 'is-invalid': error('values.k2') }"
+                v-on:change="clear('values.k2')">
           <option :value="1.2">Ринок розвивається швидкими темпами</option>
           <option :value="1.05">Ринок має позитивні тенденції змін до зростання</option>
           <option :value="1">Ринок стабільний</option>
           <option :value="0.95">Ринок спадає</option>
           <option :value="0.8">Ринок спадає швидкими темпами</option>
         </select>
-        <div class="invalid-feedback" v-for="err of error('k2')">{{ err }}</div>
+        <div class="invalid-feedback" v-for="err of error('values.k2')">{{ err }}</div>
       </div>
     </div>
 
@@ -149,16 +149,16 @@
              class="col-sm-7 col-form-label">{{ parameters.k3.name }}:</label>
       <div class="col-sm-5">
         <select class="form-control" id="parameter-k3"
-                v-model="value.competitive_method.k3"
-                v-bind:class="{ 'is-invalid': error('k3') }"
-                v-on:change="clear('k3')">
+                v-model="value.competitive_method.values.k3"
+                v-bind:class="{ 'is-invalid': error('values.k3') }"
+                v-on:change="clear('values.k3')">
           <option :value="1.2">Ринок розвивається швидкими темпами</option>
           <option :value="1.05">Ринок має позитивні тенденції змін до зростання</option>
           <option :value="1">Ринок стабільний</option>
           <option :value="0.95">Ринок спадає</option>
           <option :value="0.8">Ринок спадає швидкими темпами</option>
         </select>
-        <div class="invalid-feedback" v-for="err of error('k3')">{{ err }}</div>
+        <div class="invalid-feedback" v-for="err of error('values.k3')">{{ err }}</div>
       </div>
     </div>
 
@@ -167,16 +167,16 @@
              class="col-sm-7 col-form-label">{{ parameters.k4.name }}:</label>
       <div class="col-sm-5">
         <select class="form-control" id="parameter-k4"
-                v-model="value.competitive_method.k4"
-                v-bind:class="{ 'is-invalid': error('k4') }"
-                v-on:change="clear('k4')">
+                v-model="value.competitive_method.values.k4"
+                v-bind:class="{ 'is-invalid': error('values.k4') }"
+                v-on:change="clear('values.k4')">
           <option :value="1.2">Ринок розвивається швидкими темпами</option>
           <option :value="1.05">Ринок має позитивні тенденції змін до зростання</option>
           <option :value="1">Ринок стабільний</option>
           <option :value="0.95">Ринок спадає</option>
           <option :value="0.8">Ринок спадає швидкими темпами</option>
         </select>
-        <div class="invalid-feedback" v-for="err of error('k4')">{{ err }}</div>
+        <div class="invalid-feedback" v-for="err of error('values.k4')">{{ err }}</div>
       </div>
     </div>
 
@@ -185,16 +185,16 @@
              class="col-sm-7 col-form-label">{{ parameters.k5.name }}:</label>
       <div class="col-sm-5">
         <select class="form-control" id="parameter-k5"
-                v-model="value.competitive_method.k5"
-                v-bind:class="{ 'is-invalid': error('k5') }"
-                v-on:change="clear('k5')">
+                v-model="value.competitive_method.values.k5"
+                v-bind:class="{ 'is-invalid': error('values.k5') }"
+                v-on:change="clear('values.k5')">
           <option :value="1.2">Ринок розвивається швидкими темпами</option>
           <option :value="1.05">Ринок має позитивні тенденції змін до зростання</option>
           <option :value="1">Ринок стабільний</option>
           <option :value="0.95">Ринок спадає</option>
           <option :value="0.8">Ринок спадає швидкими темпами</option>
         </select>
-        <div class="invalid-feedback" v-for="err of error('k5')">{{ err }}</div>
+        <div class="invalid-feedback" v-for="err of error('values.k5')">{{ err }}</div>
       </div>
     </div>
 
@@ -295,6 +295,8 @@
       </div>
     </div>
 
+    <div class="invalid-feedback d-block mb-2" v-for="err of error('parameters')">{{ err }}</div>
+
     <div class="row mb-3" v-if="value.competitive_method.parameters.length < parameters.parameters_count.max">
       <div class="col-12">
         <button class="btn btn-sm btn-outline-secondary m-auto" type="button"
@@ -323,7 +325,41 @@ export default {
   },
   computed: {
     cost: function () {
-      return (0).toFixed(2);
+      const parameters_cost = this.value.competitive_method.parameters.reduce((sum, item) => {
+        switch (item.direction) {
+          case 1:
+            return sum + (item.analog_value / item.own_value) * item.q_value;
+          case -1:
+            return sum + (item.own_value / item.analog_value) * item.q_value;
+          default:
+            return sum;
+        }
+      }, .0);
+
+      const num = (
+          parameters_cost *
+          (
+              this.value.competitive_method.values.own_quality_value /
+              this.value.competitive_method.values.analog_quality_value
+          ) *
+          this.value.competitive_method.values.weight_factor *
+          this.value.competitive_method.values.k1 *
+          this.value.competitive_method.values.k2 *
+          this.value.competitive_method.values.k5
+      );
+
+      const numth = (
+          this.value.competitive_method.values.k3 / (
+              this.value.competitive_method.values.analog_implementation_costs /
+              this.value.competitive_method.values.own_implementation_costs
+          ) +
+          this.value.competitive_method.values.k4 / (
+              this.value.competitive_method.values.analog_support_cost /
+              this.value.competitive_method.values.own_support_cost
+          )
+      );
+
+      return (num / numth || 0).toFixed(2);
     }
   },
   methods: {
@@ -331,7 +367,7 @@ export default {
       return _.get(this.errors, field, null);
     },
     clear: function (field) {
-      return _.set(this.errors, field, null);
+      this.errors = _.omit(this.errors, [field]);
     },
     save: function () {
       const request = this.axios.put(`/api/projects/${this.$route.params.id}/competitive-method`, this.value.competitive_method);
@@ -353,6 +389,7 @@ export default {
     },
 
     addParameter() {
+      this.clear('parameters');
       this.value.competitive_method.parameters = this.value.competitive_method.parameters || [];
 
       if (this.value.competitive_method.parameters.length < this.parameters.parameters_count.max) {
@@ -369,6 +406,7 @@ export default {
     },
 
     removeParameter(idx) {
+      this.clear('parameters');
       this.value.competitive_method.parameters.splice(idx, 1);
     }
   }

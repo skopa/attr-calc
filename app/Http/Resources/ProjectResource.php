@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Methods\CompetitiveMethodResource;
 use App\Http\Resources\Methods\CostMethodResource;
 use App\Http\Resources\Methods\RevenueMethodResource;
 use App\Models\Project;
@@ -32,8 +33,7 @@ class ProjectResource extends JsonResource
 
             'cost_method' => CostMethodResource::make($this->resource->costMethodCalculation),
             'revenue_method' => RevenueMethodResource::make($this->resource->revenueMethodCalculation),
-
-//            'competitive_method' => [],
+            'competitive_method' => CompetitiveMethodResource::make($this->resource->competitiveMethodCalculation),
 
             'user' => UserResource::make($this->resource->user),
         ];

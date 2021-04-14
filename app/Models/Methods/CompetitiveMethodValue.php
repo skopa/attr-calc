@@ -14,5 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CompetitiveMethodValue extends Model
 {
-    //
+    protected $fillable = ['key', 'value'];
+    protected $casts = [
+        'value' => 'float'
+    ];
 }

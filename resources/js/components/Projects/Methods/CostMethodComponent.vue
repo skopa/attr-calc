@@ -65,7 +65,7 @@ export default {
       return _.get(this.errors, field, null);
     },
     clear: function (field) {
-      return _.set(this.errors, field, null);
+      this.errors = _.omit(this.errors, [field]);
     },
     save: function () {
       const request = this.axios.put(`/api/projects/${this.$route.params.id}/cost-method`, this.value.cost_method);

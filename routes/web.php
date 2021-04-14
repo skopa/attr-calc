@@ -33,6 +33,7 @@ Route::group(['prefix' => 'api'], function () {
 
         Route::put('projects/{project}/cost-method', 'ProjectMethodController@costMethod');
         Route::put('projects/{project}/revenue-method', 'ProjectMethodController@revenueMethod');
+        Route::put('projects/{project}/competitive-method', 'ProjectMethodController@competitiveMethod');
     });
 });
 

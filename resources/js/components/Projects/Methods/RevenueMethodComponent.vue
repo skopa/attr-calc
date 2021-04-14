@@ -97,10 +97,12 @@
       </div>
     </div>
 
+    <div class="invalid-feedback d-block mb-2" v-for="err of error('periods')">{{ err }}</div>
+
     <div class="row mb-3" v-if="value.revenue_method.periods.length < parameters.periods_count.max">
       <div class="col-12">
         <button class="btn btn-sm btn-outline-secondary m-auto" type="button"
-                v-on:click="addPeriod">Add period
+                v-on:click="addPeriod()">Add period
         </button>
       </div>
     </div>
@@ -149,7 +151,7 @@ export default {
       return _.get(this.errors, field, null);
     },
     clear: function (field) {
-      return _.set(this.errors, field, null);
+      this.errors = _.omit(this.errors, [field]);
     },
     save: function () {
       const request = this.axios.put(`/api/projects/${this.$route.params.id}/revenue-method`, this.value.revenue_method);
@@ -171,6 +173,7 @@ export default {
     },
 
     addPeriod() {
+      this.clear('periods');
       this.value.revenue_method.periods = this.value.revenue_method.periods || [];
 
       if (this.value.revenue_method.periods.length < this.parameters.periods_count.max) {
@@ -187,6 +190,7 @@ export default {
     },
 
     removePeriod(idx) {
+      this.clear('periods');
       this.value.revenue_method.periods.splice(idx, 1);
     }
   }

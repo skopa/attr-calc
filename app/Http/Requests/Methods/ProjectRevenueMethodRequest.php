@@ -32,7 +32,7 @@ class ProjectRevenueMethodRequest extends FormRequest
             'periods.*.sales_volume' => 'required|'.$this->attributeRules('revenue_method.period.sales_volume'),
             'periods.*.expected_price' => 'required|'.$this->attributeRules('revenue_method.period.expected_price'),
             'periods.*.expected_cost' => 'required|'.$this->attributeRules('revenue_method.period.expected_cost'),
-            'periods.*.licensor_percentage' => 'required|'.$this->attributeRules('revenue_method.period.licensor_percentage'),
+            'periods.*.licensor_percentage' => 'required|gt:0|'.$this->attributeRules('revenue_method.period.licensor_percentage'),
         ];
     }
 }
