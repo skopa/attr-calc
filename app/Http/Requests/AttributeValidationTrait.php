@@ -4,8 +4,6 @@
 namespace App\Http\Requests;
 
 
-use App\Models\Attribute;
-
 trait AttributeValidationTrait
 {
     /**
@@ -14,9 +12,6 @@ trait AttributeValidationTrait
      */
     public function attributeRules(string $key): string
     {
-        /** @var Attribute $attribute */
-        $attribute = resolve('attributes')->get($key);
-        //dd($attribute);
-        return $attribute->getRules();
+        return resolve('attributes')->get($key)->rule;
     }
 }

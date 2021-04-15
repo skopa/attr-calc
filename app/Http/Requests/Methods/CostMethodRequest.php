@@ -5,7 +5,7 @@ namespace App\Http\Requests\Methods;
 use App\Http\Requests\AttributeValidationTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectCostMethodRequest extends FormRequest
+class CostMethodRequest extends FormRequest
 {
     use AttributeValidationTrait;
 

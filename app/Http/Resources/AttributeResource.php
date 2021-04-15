@@ -23,11 +23,11 @@ class AttributeResource extends JsonResource
     {
         return [
             'path' => $this->resource->path,
-            'key' => $this->resource->key,
-            'min' => $this->resource->min,
-            'max' => $this->resource->max,
+            'rule' => $this->resource->rule,
             'name' => $this->resource->name,
-            'order' => $this->resource->order
+            'order' => $this->resource->order,
+
+            'key' => $this->resource->key,
         ];
     }
 }

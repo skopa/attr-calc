@@ -5,7 +5,7 @@ namespace App\Http\Requests\Methods;
 use App\Http\Requests\AttributeValidationTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectCompetitiveMethodRequest extends FormRequest
+class CompetitiveMethodRequest extends FormRequest
 {
     use AttributeValidationTrait;
 
@@ -42,11 +42,24 @@ class ProjectCompetitiveMethodRequest extends FormRequest
             'values.k5' => 'required|'.$this->attributeRules('competitive_method.k5'),
 
             'parameters' => 'required|'.$this->attributeRules('competitive_method.parameters_count'),
+            'parameters_q_value_sum' => 'required|'.$this->attributeRules('competitive_method.parameters_q_value_sum'),
             'parameters.*.name' => 'required|'.$this->attributeRules('competitive_method.parameters.name'),
             'parameters.*.direction' => 'required|'.$this->attributeRules('competitive_method.parameters.direction'),
             'parameters.*.q_value' => 'required|'.$this->attributeRules('competitive_method.parameters.q_value'),
             'parameters.*.analog_value' => 'required|'.$this->attributeRules('competitive_method.parameters.analog_value'),
             'parameters.*.own_value' => 'required|'.$this->attributeRules('competitive_method.parameters.own_value'),
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'parameters_q_value_sum' => collect($this->get('parameters'))->sum('q_value'),
+        ]);
     }
 }

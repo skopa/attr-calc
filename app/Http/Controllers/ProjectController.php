@@ -9,6 +9,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
@@ -46,10 +47,15 @@ class ProjectController extends Controller
         /** @var User $user */
         $user = $request->user();
         /** @var Project $project */
-        $project = $user->projects()->create($request->validated());
-        $project->costMethodCalculation()->create();
-        $project->competitiveMethodCalculation()->create();
-        $project->revenueMethodCalculation()->create();
+        $project = DB::transaction(function () use ($request, $user) {
+            /** @var Project $project */
+            $project = $user->projects()->create($request->validated());
+            $project->costMethodCalculation()->create();
+            $project->competitiveMethodCalculation()->create();
+            $project->revenueMethodCalculation()->create();
+            return $project;
+        });
+
         return ProjectResource::make($project);
     }
 

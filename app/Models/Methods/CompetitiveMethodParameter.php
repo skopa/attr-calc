@@ -18,5 +18,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CompetitiveMethodParameter extends Model
 {
-    protected $fillable = ['name', 'direction', 'q_value', 'analog_value', 'own_value'];
+    protected $fillable = ['name', 'direction', 'q_value', 'analog_value', 'own_value', 'index'];
 }

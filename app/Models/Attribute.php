@@ -11,12 +11,7 @@ use Illuminate\Support\Str;
  * @property-read string path
  * @property-read string key
  * @property-read string name
- * @property-read string type
- * @property-read float min
- * @property-read float max
- * @property-read bool min_strict
- * @property-read bool max_strict
- * @property-read string custom_rules
+ * @property-read string rule
  * @property-read integer order
  */
 class Attribute extends Model
@@ -25,7 +20,7 @@ class Attribute extends Model
 
     protected $primaryKey = 'path';
     protected $keyType = 'string';
-    protected $fillable = ['path', 'name', 'type', 'min', 'max', 'min_strict', 'max_strict', 'custom_rules'];
+    protected $fillable = ['path', 'name', 'rules', 'order'];
 
     public function getRules(): string
     {

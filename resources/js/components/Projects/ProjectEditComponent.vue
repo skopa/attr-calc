@@ -3,7 +3,7 @@
     <div class="col-12 col-lg-10">
       <div class="card card-default">
         <div class="card-header">
-          <b>Project: {{ project.name }}</b>
+          <b>{{ parameters.project_name.name }}: {{ project.name }}</b>
           <a class="btn btn-outline-primary btn-sm right" v-on:click="view()">View</a>
         </div>
 
@@ -47,10 +47,12 @@
             </div>
 
             <div class="form-group custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="has_competitors" placeholder="Project name"
+              <input type="checkbox" class="custom-control-input" id="has_competitors"
                      v-model="project.has_competitors">
-              <label class="custom-control-label" for="has_competitors">{{ parameters.has_competitors.name }}</label>
+              <label class="custom-control-label" for="has_competitors">{{ parameters.project_has_competitors.name }}</label>
             </div>
+
+            <span class="horizontal-line mb-3"></span>
 
             <div class="d-flex">
               <button class="btn btn-outline-success btn-sm ml-auto mr-0" type="submit">Save Project</button>
@@ -108,7 +110,7 @@ export default {
         project_name: {},
         project_description: {},
         project_ready_level: {},
-        has_competitors: {},
+        project_has_competitors: {},
         cost_method: {},
         revenue_method: {}
       },

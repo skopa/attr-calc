@@ -109,7 +109,7 @@
 
     <div class="invalid-feedback d-block mb-2" v-for="err of error('periods')">{{ err }}</div>
 
-    <div class="row mb-3" v-if="value.revenue_method.periods.length < parameters.periods_count.max">
+    <div class="row mb-3" v-if="value.revenue_method.periods.length < max_periods">
       <div class="col-12">
         <button class="btn btn-sm btn-outline-secondary m-auto" type="button"
                 v-on:click="addPeriod()">Add period
@@ -132,7 +132,8 @@ export default {
   props: ['value', 'parameters'],
   data: function () {
     return {
-      errors: {}
+      errors: {},
+      max_periods: 5
     }
   },
   computed: {
@@ -186,7 +187,7 @@ export default {
       this.clear('periods');
       this.value.revenue_method.periods = this.value.revenue_method.periods || [];
 
-      if (this.value.revenue_method.periods.length < this.parameters.periods_count.max) {
+      if (this.value.revenue_method.periods.length < this.max_periods) {
         this.value.revenue_method.periods?.push({});
         return;
       }

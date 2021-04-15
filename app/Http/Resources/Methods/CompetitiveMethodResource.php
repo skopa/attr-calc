@@ -30,10 +30,10 @@ class CompetitiveMethodResource extends JsonResource
                 ->map(function (CompetitiveMethodParameter $parameter) {
                     return (object)[
                         'name' => $parameter->name,
-                        'direction' => $parameter->direction,
-                        'q_value' => $parameter->q_value,
-                        'analog_value' => $parameter->analog_value,
-                        'own_value' => $parameter->own_value,
+                        'direction' => (int)$parameter->direction,
+                        'q_value' => (float)$parameter->q_value,
+                        'analog_value' => (float)$parameter->analog_value,
+                        'own_value' => (float)$parameter->own_value,
                     ];
                 }),
         ];

@@ -1,9 +1,9 @@
 <template>
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-12 col-lg-10">
       <div class="card card-default">
-        <div class="card-header">
-          <b>Details</b>
+        <div class="card-header" v-if="attributes">
+          <b>{{ attributes.project_name.name }}: {{ project.name }}</b>
           <a class="btn btn-outline-success btn-sm right" v-on:click="edit(project.id)">Edit project</a>
         </div>
 
@@ -19,7 +19,7 @@
                 <td>{{ project.ready_level }}</td>
               </tr>
               <tr>
-                <td>{{ attributes.has_competitors.name }}</td>
+                <td>{{ attributes.project_has_competitors.name }}</td>
                 <td>{{ project.has_competitors ? 'Так' : 'Ні' }}</td>
               </tr>
               </tbody>
@@ -89,31 +89,31 @@
               <tbody>
               <tr>
                 <td>{{ attributes.competitive_method.own_quality_value.name }}</td>
-                <td>{{ project.competitive_method.own_quality_value }}</td>
+                <td>{{ project.competitive_method.values.own_quality_value }}</td>
               </tr>
               <tr>
                 <td>{{ attributes.competitive_method.analog_quality_value.name }}</td>
-                <td>{{ project.competitive_method.analog_quality_value }}</td>
+                <td>{{ project.competitive_method.values.analog_quality_value }}</td>
               </tr>
               <tr>
                 <td>{{ attributes.competitive_method.weight_factor.name }}</td>
-                <td>{{ project.competitive_method.weight_factor }}</td>
+                <td>{{ project.competitive_method.values.weight_factor }}</td>
               </tr>
               <tr>
                 <td>{{ attributes.competitive_method.analog_implementation_costs.name }}</td>
-                <td>{{ project.competitive_method.analog_implementation_costs }}</td>
+                <td>{{ project.competitive_method.values.analog_implementation_costs }}</td>
               </tr>
               <tr>
                 <td>{{ attributes.competitive_method.own_implementation_costs.name }}</td>
-                <td>{{ project.competitive_method.own_implementation_costs }}</td>
+                <td>{{ project.competitive_method.values.own_implementation_costs }}</td>
               </tr>
               <tr>
                 <td>{{ attributes.competitive_method.analog_support_cost.name }}</td>
-                <td>{{ project.competitive_method.analog_support_cost }}</td>
+                <td>{{ project.competitive_method.values.analog_support_cost }}</td>
               </tr>
               <tr>
                 <td>{{ attributes.competitive_method.own_support_cost.name }}</td>
-                <td>{{ project.competitive_method.own_support_cost }}</td>
+                <td>{{ project.competitive_method.values.own_support_cost }}</td>
               </tr>
               </tbody>
             </table>
@@ -124,53 +124,53 @@
               <tbody>
               <tr>
                 <td>{{ attributes.competitive_method.k1.name }}</td>
-                <td>{{ project.competitive_method.k1 }}</td>
+                <td>{{ project.competitive_method.values.k1 }}</td>
               </tr>
               <tr>
                 <td>{{ attributes.competitive_method.k2.name }}</td>
-                <td>{{ project.competitive_method.k2 }}</td>
+                <td>{{ project.competitive_method.values.k2 }}</td>
               </tr>
               <tr>
                 <td>{{ attributes.competitive_method.k3.name }}</td>
-                <td>{{ project.competitive_method.k3 }}</td>
+                <td>{{ project.competitive_method.values.k3 }}</td>
               </tr>
               <tr>
                 <td>{{ attributes.competitive_method.k4.name }}</td>
-                <td>{{ project.competitive_method.k4 }}</td>
+                <td>{{ project.competitive_method.values.k4 }}</td>
               </tr>
               <tr>
                 <td>{{ attributes.competitive_method.k5.name }}</td>
-                <td>{{ project.competitive_method.k5 }}</td>
+                <td>{{ project.competitive_method.values.k5 }}</td>
               </tr>
               </tbody>
             </table>
           </div>
 
-          <div v-for="parameter in project.competitive_method.parameters">
-            <p>{{ parameter.name }}</p>
-            <div class="table-responsive">
-              <table class="table table-sm table-striped table-bordered">
-                <tbody>
+          <div class="table-responsive">
+            <table class="table table-sm table-striped table-bordered">
+              <tbody>
+              <template v-for="parameter in project.competitive_method.parameters">
                 <tr>
-                  <td>{{ attributes.competitive_method.direction.name }}</td>
+                  <td class="font-weight-bold">{{ parameter.name }}</td>
+                  <!--<td>{{ attributes.competitive_method.parameters.direction.name }}</td>-->
                   <td v-if="parameter.direction === 1">Прямий</td>
                   <td v-if="parameter.direction === -1">Непрямий</td>
                 </tr>
                 <tr>
-                  <td>{{ attributes.competitive_method.q_value.name }}</td>
+                  <td>{{ attributes.competitive_method.parameters.q_value.name }}</td>
                   <td>{{ parameter.q_value }}</td>
                 </tr>
                 <tr>
-                  <td>{{ attributes.competitive_method.analog_value.name }}</td>
+                  <td>{{ attributes.competitive_method.parameters.analog_value.name }}</td>
                   <td>{{ parameter.analog_value }}</td>
                 </tr>
                 <tr>
-                  <td>{{ attributes.competitive_method.own_value.name }}</td>
+                  <td>{{ attributes.competitive_method.parameters.own_value.name }}</td>
                   <td>{{ parameter.own_value }}</td>
                 </tr>
-                </tbody>
-              </table>
-            </div>
+              </template>
+              </tbody>
+            </table>
           </div>
         </div>
 

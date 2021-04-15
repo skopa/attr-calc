@@ -29,7 +29,7 @@ class ProjectRequest extends FormRequest
             'name' => 'required|string|min:5',
             'description' => 'nullable|string',
             'ready_level' => 'required|' . $this->attributeRules('project_ready_level'),
-            'has_competitors' => 'required|boolean'
+            'has_competitors' => 'required|' . $this->attributeRules('project_has_competitors')
         ];
     }
 }

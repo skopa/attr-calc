@@ -207,6 +207,8 @@
 
     <span class="horizontal-line mb-3"></span>
 
+    <div class="invalid-feedback d-block mb-2" v-for="err of error('parameters_q_value_sum')">{{ err }}</div>
+
     <div class="col-12 border rounded py-3 mb-3" v-for="(parameter, idx) in value.competitive_method.parameters">
       <div class="row">
         <div class="col-12 col-xl-8 form-group">
@@ -246,7 +248,8 @@
                      v-bind:value="-1">
               <label class="form-check-label" v-bind:for="`period-${idx}-indirect`">Непрямий</label>
             </div>
-            <div class="invalid-feedback" v-for="err of error('parameters.' + idx + '.direction')">{{ err }}</div>
+            <div class="invalid-feedback d-block"
+                 v-for="err of error('parameters.' + idx + '.direction')">{{ err }}</div>
           </div>
         </div>
 
@@ -308,7 +311,7 @@
 
     <div class="invalid-feedback d-block mb-2" v-for="err of error('parameters')">{{ err }}</div>
 
-    <div class="row mb-3" v-if="value.competitive_method.parameters.length < parameters.parameters_count.max">
+    <div class="row mb-3" v-if="value.competitive_method.parameters.length < max_parameters">
       <div class="col-12">
         <button class="btn btn-sm btn-outline-secondary m-auto" type="button"
                 v-on:click="addParameter">Add parameter
@@ -331,7 +334,8 @@ export default {
   props: ['value', 'parameters'],
   data: function () {
     return {
-      errors: {}
+      errors: {},
+      max_parameters: 5
     }
   },
   computed: {
@@ -403,7 +407,7 @@ export default {
       this.clear('parameters');
       this.value.competitive_method.parameters = this.value.competitive_method.parameters || [];
 
-      if (this.value.competitive_method.parameters.length < this.parameters.parameters_count.max) {
+      if (this.value.competitive_method.parameters.length < this.max_parameters) {
         this.value.competitive_method.parameters?.push({});
         return;
       }
