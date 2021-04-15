@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectAttributeTable extends Migration
+class CreateCompetitiveMethodCalculationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,15 @@ class CreateProjectAttributeTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_attribute', function (Blueprint $table) {
+        Schema::create('competitive_method_calculations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('project_id');
-            $table->unsignedBigInteger('attribute_id');
             $table->foreign('project_id')
                 ->references('id')
                 ->on('projects')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->foreign('attribute_id')
-                ->references('id')
-                ->on('attributes')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-            $table->float('value');
+
             $table->timestamps();
         });
     }
@@ -39,6 +33,6 @@ class CreateProjectAttributeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_attribute');
+        Schema::dropIfExists('competitive_method_calculations');
     }
 }
