@@ -27,19 +27,19 @@ class CostMethodRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'percentage_of_cost' => 'required|' . $this->attributeRules('cost_method.percentage_of_cost'),
+            'percentage_of_cost' => $this->attributeRules('cost_method.percentage_of_cost'),
 
-            'sum.raw_materials' => 'required|' . $this->attributeRules('cost_method.sum.raw_materials'),
-            'sum.returnable_waste' => 'required|' . $this->attributeRules('cost_method.sum.returnable_waste'),
-            'sum.third_parties_production' => 'required|' . $this->attributeRules('cost_method.sum.third_parties_production'),
-            'sum.fuel_and_energy' => 'required|' . $this->attributeRules('cost_method.sum.fuel_and_energy'),
-            'sum.wages' => 'required|' . $this->attributeRules('cost_method.sum.wages'),
-            'sum.social_events_deductions' => 'required|' . $this->attributeRules('cost_method.sum.social_events_deductions'),
-            'sum.defective_lose' => 'required|' . $this->attributeRules('cost_method.sum.defective_lose'),
-            'sum.total_expenditures' => 'required|' . $this->attributeRules('cost_method.sum.total_expenditures'),
-            'sum.general_expenses' => 'required|' . $this->attributeRules('cost_method.sum.general_expenses'),
-            'sum.other_production_expenses' => 'required|' . $this->attributeRules('cost_method.sum.other_production_expenses'),
-            'sum.commercial_expenses' => 'required|' . $this->attributeRules('cost_method.sum.commercial_expenses'),
+            'sum.raw_materials' => $this->attributeRules('cost_method.sum.raw_materials'),
+            'sum.returnable_waste' => $this->attributeRules('cost_method.sum.returnable_waste'),
+            'sum.third_parties_production' => $this->attributeRules('cost_method.sum.third_parties_production'),
+            'sum.fuel_and_energy' => $this->attributeRules('cost_method.sum.fuel_and_energy'),
+            'sum.wages' => $this->attributeRules('cost_method.sum.wages'),
+            'sum.social_events_deductions' => $this->attributeRules('cost_method.sum.social_events_deductions'),
+            'sum.defective_lose' => $this->attributeRules('cost_method.sum.defective_lose'),
+            'sum.total_expenditures' => $this->attributeRules('cost_method.sum.total_expenditures'),
+            'sum.general_expenses' => $this->attributeRules('cost_method.sum.general_expenses'),
+            'sum.other_production_expenses' => $this->attributeRules('cost_method.sum.other_production_expenses'),
+            'sum.commercial_expenses' => $this->attributeRules('cost_method.sum.commercial_expenses'),
         ];
     }
 }

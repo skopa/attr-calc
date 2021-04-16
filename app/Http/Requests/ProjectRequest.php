@@ -26,10 +26,10 @@ class ProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:5',
-            'description' => 'nullable|string',
-            'ready_level' => 'required|' . $this->attributeRules('project_ready_level'),
-            'has_competitors' => 'required|' . $this->attributeRules('project_has_competitors')
+            'name' => $this->attributeRules('project_name'),
+            'description' => $this->attributeRules('project_description'),
+            'ready_level' => $this->attributeRules('project_ready_level'),
+            'has_competitors' => $this->attributeRules('project_has_competitors')
         ];
     }
 }

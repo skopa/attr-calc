@@ -2,8 +2,8 @@
   <div class="row justify-content-center">
     <div class="col-12 col-lg-10">
       <div class="card card-default">
-        <div class="card-header" v-if="attributes">
-          <b>{{ attributes.project_name.name }}: {{ project.name }}</b>
+        <div class="card-header font-weight-bold">
+          <span v-if="attributes">{{ attributes.project_name.name }}</span>: <span>{{ project.name }}</span>
           <a class="btn btn-outline-success btn-sm right" v-on:click="edit(project.id)">Edit project</a>
         </div>
 

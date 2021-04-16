@@ -27,12 +27,12 @@ class RevenueMethodRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'discount_rate' => 'required|'.$this->attributeRules('revenue_method.discount_rate'),
-            'periods' => 'required|'.$this->attributeRules('revenue_method.periods_count'),
-            'periods.*.sales_volume' => 'required|'.$this->attributeRules('revenue_method.period.sales_volume'),
-            'periods.*.expected_price' => 'required|'.$this->attributeRules('revenue_method.period.expected_price'),
-            'periods.*.expected_cost' => 'required|'.$this->attributeRules('revenue_method.period.expected_cost'),
-            'periods.*.licensor_percentage' => 'required|gt:0|'.$this->attributeRules('revenue_method.period.licensor_percentage'),
+            'discount_rate' => $this->attributeRules('revenue_method.discount_rate'),
+            'periods' => $this->attributeRules('revenue_method.periods_count'),
+            'periods.*.sales_volume' => $this->attributeRules('revenue_method.period.sales_volume'),
+            'periods.*.expected_price' => $this->attributeRules('revenue_method.period.expected_price'),
+            'periods.*.expected_cost' => $this->attributeRules('revenue_method.period.expected_cost'),
+            'periods.*.licensor_percentage' => $this->attributeRules('revenue_method.period.licensor_percentage'),
         ];
     }
 }
