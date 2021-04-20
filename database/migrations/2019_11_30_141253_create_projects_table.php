@@ -17,7 +17,7 @@ class CreateProjectsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->decimal('ready_level')->default(0);
+            $table->decimal('ready_level', 10, 3)->default(0);
             $table->boolean('has_competitors')->default(false);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')

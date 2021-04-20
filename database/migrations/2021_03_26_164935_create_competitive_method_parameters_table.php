@@ -24,9 +24,9 @@ class CreateCompetitiveMethodParametersTable extends Migration
 
             $table->string('name');
             $table->integer('direction');
-            $table->decimal('q_value');
-            $table->decimal('analog_value');
-            $table->decimal('own_value');
+            $table->decimal('q_value', 10, 3);
+            $table->decimal('analog_value', 10, 3);
+            $table->decimal('own_value', 10, 3);
             $table->integer('index');
 
             $table->timestamps();

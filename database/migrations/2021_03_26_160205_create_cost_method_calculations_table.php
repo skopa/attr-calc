@@ -16,7 +16,7 @@ class CreateCostMethodCalculationsTable extends Migration
         Schema::create('cost_method_calculations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('project_id');
-            $table->decimal('percentage_of_cost')->nullable();
+            $table->decimal('percentage_of_cost', 10, 3)->nullable();
             $table->foreign('project_id')
                 ->references('id')
                 ->on('projects')

@@ -23,7 +23,7 @@ class CreateCompetitiveMethodValuesTable extends Migration
                 ->onUpdate('cascade');
 
             $table->string('key');
-            $table->decimal('value');
+            $table->decimal('value', 10, 3);
 
             $table->timestamps();
         });

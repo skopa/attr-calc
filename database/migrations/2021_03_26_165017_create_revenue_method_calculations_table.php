@@ -16,7 +16,7 @@ class CreateRevenueMethodCalculationsTable extends Migration
         Schema::create('revenue_method_calculations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('project_id');
-            $table->decimal('discount_rate')->nullable();
+            $table->decimal('discount_rate', 10, 3)->nullable();
             $table->foreign('project_id')
                 ->references('id')
                 ->on('projects')

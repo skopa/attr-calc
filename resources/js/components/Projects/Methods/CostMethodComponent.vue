@@ -59,7 +59,7 @@ export default {
     cost: function () {
       const percentage = parseFloat(this.value?.cost_method?.percentage_of_cost || 0);
       const sum = this.attributes.reduce((sum, attr) => sum + parseFloat(this.value.cost_method.sum[attr.key] || 0), 0);
-      return (sum * (1 + percentage / 100)).toFixed(2);
+      return (sum * (1 + percentage / 100)).toFixed(3);
     }
   },
   methods: {

@@ -77,9 +77,9 @@ class CompetitiveMethodCalculation extends Model
                 )
             );
         } catch (\Exception $divisionByZeroError) {
-            return round(0, 2);
+            return round(0, 3);
         }
 
-        return round($num / $numth, 2);
+        return round($num / $numth, 3);
     }
 }

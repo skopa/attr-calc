@@ -23,10 +23,10 @@ class CreateRevenueMethodPeriodsTable extends Migration
                 ->onUpdate('cascade');
 
             $table->integer('index');
-            $table->decimal('sales_volume');
-            $table->decimal('expected_price');
-            $table->decimal('expected_cost');
-            $table->decimal('licensor_percentage');
+            $table->decimal('sales_volume', 10, 3);
+            $table->decimal('expected_price', 10, 3);
+            $table->decimal('expected_cost', 10, 3);
+            $table->decimal('licensor_percentage', 10, 3);
 
             $table->timestamps();
         });

@@ -40,6 +40,6 @@ class RevenueMethodCalculation extends Model
                 return $carry;
             }, []);
 
-        return round(0.8 * ($subtotal['sum'] ?? .0) - ($subtotal['licensor'] ?? .0), 2);
+        return round(0.8 * ($subtotal['sum'] ?? .0) - ($subtotal['licensor'] ?? .0), 3);
     }
 }

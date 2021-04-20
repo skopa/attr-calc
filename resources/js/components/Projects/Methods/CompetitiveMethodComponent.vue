@@ -374,7 +374,7 @@ export default {
           )
       );
 
-      return (num / numth || 0).toFixed(2);
+      return (num / numth || 0).toFixed(3);
     }
   },
   methods: {

@@ -98,8 +98,8 @@
       </div>
       <div class="d-flex mt-1">
         <span class="font-weight-bold">
-          Прибуток Проєкту: {{ periods_cost[idx].sum.toFixed(2) }};
-          прибуток ліцензіара: {{ periods_cost[idx].licensor.toFixed(2) }}.
+          Прибуток Проєкту: {{ periods_cost[idx].sum.toFixed(3) }};
+          прибуток ліцензіара: {{ periods_cost[idx].licensor.toFixed(3) }}.
         </span>
         <button class="btn btn-sm btn-outline-danger ml-auto mr-0" type="button"
                 v-on:click="removePeriod(idx)">Remove
@@ -154,7 +154,7 @@ export default {
       const total = this.periods_cost.reduce((sum, item) => {
         return sum + (item.sum * 0.8 - item.licensor);
       }, 0);
-      return total.toFixed(2);
+      return total.toFixed(3);
     }
   },
   methods: {

@@ -36,6 +36,6 @@ class CostMethodCalculation extends Model
                 return $sum + (float)$value->value;
             }, .0);
 
-        return round($sum * (1 + (float)$this->percentage_of_cost / 100), 2);
+        return round($sum * (1 + (float)$this->percentage_of_cost / 100), 3);
     }
 }
