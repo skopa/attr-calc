@@ -2,7 +2,6 @@
 
 namespace App\Models\Methods;
 
-use DivisionByZeroError;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -53,7 +52,7 @@ class CompetitiveMethodCalculation extends Model
 
         $values = $this->values->pluck('value', 'key');
 
-        try {
+        return rescue(function () use ($parameters_cost, $values) {
             $num = (
                 $parameters_cost *
                 (
@@ -76,10 +75,8 @@ class CompetitiveMethodCalculation extends Model
                     $values->get('own_support_cost', .0)
                 )
             );
-        } catch (\Exception $divisionByZeroError) {
-            return round(0, 3);
-        }
 
-        return round($num / $numth, 3);
+            return round($num / $numth, 3);
+        }, .0);
     }
 }
