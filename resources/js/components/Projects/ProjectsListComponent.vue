@@ -27,9 +27,9 @@
                                 <br>
                                 <small>Created by: {{project.user.name}}</small>
                             </td>
-                            <td>{{project.cost_method_calculated || 0}}</td>
-                            <td>{{project.competitive_method_calculated || 0}}</td>
-                            <td>{{project.revenue_method_calculated || 0}}</td>
+                            <td>{{project.cost_method.cost || 0}}</td>
+                            <td>{{project.competitive_method.cost || 0}}</td>
+                            <td>{{project.revenue_method.cost || 0}}</td>
                             <td class="control">
                                 <div>
                                     <a class="btn btn-outline-primary btn-sm" v-on:click="view(project.id)">View</a>
@@ -101,7 +101,8 @@
   vertical-align: revert;
 }
 .value {
-  max-width: 60px;
+  max-width: 150px;
+  min-width: 70px;
   line-height: 1.2em;
 }
 </style>
