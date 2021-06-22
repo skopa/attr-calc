@@ -4,7 +4,8 @@ services:
 
   web:
     container_name: 'attr-calc_web'
-    image: hitalos/laravel:latest
+    build:
+      context: .
     ports:
       - 8080:80
     volumes:
