@@ -4,6 +4,11 @@
 docker-compose up -d
 ```
 
+### Install dependencies
+```console
+docker exec -it attr-calc_web composer install
+```
+
 ### Create (migrate) database
 ```console
 docker exec -it attr-calc_web php artisan migrate

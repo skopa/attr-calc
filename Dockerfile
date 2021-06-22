@@ -61,7 +61,7 @@ RUN apk add autoconf automake g++ gcc libpng-dev libtool make nasm python3
 WORKDIR /var/www
 
 # Run application
-CMD php ./artisan serve --port=80 --host=0.0.0.0
+CMD php -S 0.0.0.0:80 -t public
 
 # Expose access
 EXPOSE 80
