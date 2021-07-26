@@ -200,7 +200,6 @@ export default {
     }
   },
   mounted() {
-    console.log('Component mounted.');
     this.getData(this.$route.params.id);
   },
   methods: {
@@ -217,7 +216,7 @@ export default {
       ]).then(([projectResponse, attributesResponse]) => {
         this.project = projectResponse.data.data;
         this.attributes = attributesResponse.data.data.reduce((carry, item) => _.set(carry, item.path, item), {});
-        console.log(this.attributes);
+        console.info(this.attributes);
       });
     }
   }

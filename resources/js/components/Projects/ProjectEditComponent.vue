@@ -49,7 +49,9 @@
             <div class="form-group custom-control custom-switch">
               <input type="checkbox" class="custom-control-input" id="has_competitors"
                      v-model="project.has_competitors">
-              <label class="custom-control-label" for="has_competitors">{{ parameters.project_has_competitors.name }}</label>
+              <label class="custom-control-label" for="has_competitors">{{
+                  parameters.project_has_competitors.name
+                }}</label>
             </div>
 
             <span class="horizontal-line mb-3"></span>
@@ -68,11 +70,11 @@
             <b-tab title="Витратний метод" active>
               <cost-method v-model="project" v-bind:parameters="parameters.cost_method"></cost-method>
             </b-tab>
-            <b-tab title="Конкурентний метод" v-bind:disabled="project.ready_level >= 4">
+            <b-tab title="Конкурентний метод" v-bind:disabled="!project.has_competitors">
               <competitive-method v-model="project"
                                   v-bind:parameters="parameters.competitive_method"></competitive-method>
             </b-tab>
-            <b-tab title="Дохідний метод" v-bind:disabled="!project.has_competitors">
+            <b-tab title="Дохідний метод" v-bind:disabled="project.ready_level >= 3.999">
               <revenue-method v-model="project" v-bind:parameters="parameters.revenue_method"></revenue-method>
             </b-tab>
           </b-tabs>
@@ -144,7 +146,6 @@ export default {
       chain
           .then(processAttributes)
           .catch();
-
     },
     save: function () {
       const request = this.isNew()
@@ -168,7 +169,7 @@ export default {
         return this.$router.push({
           name: 'project-edit',
           params: {id: this.project.id}
-        }).catch(() => {});
+        });
       });
     },
     view: function () {

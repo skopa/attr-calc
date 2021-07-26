@@ -38,7 +38,8 @@
                    type="number" step="any">
           </div>
           <div class="invalid-feedback d-block"
-               v-for="err of error('periods.' + idx + '.sales_volume')">{{ err }}</div>
+               v-for="err of error('periods.' + idx + '.sales_volume')">{{ err }}
+          </div>
         </div>
 
         <div class="col-6 col-xl-3 form-group">

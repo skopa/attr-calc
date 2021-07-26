@@ -29,19 +29,18 @@ const axiosInstance = axios.create({
     }
 });
 
-axiosInstance.interceptors.response.use(
-    response => response,
-    error => {
-        Vue.notify({
-            group: 'app',
-            type: 'error',
-            title: 'Error',
-            text: error.message
-        });
+const errorHandler = error => {
+    Vue.notify({
+        group: 'app',
+        type: 'error',
+        title: 'Error',
+        text: error.message
+    });
 
-        return Promise.reject(error);
-    }
-);
+    return Promise.reject(error);
+};
+
+axiosInstance.interceptors.response.use(response => response, errorHandler);
 
 Vue.use(VueAxios, axiosInstance);
 

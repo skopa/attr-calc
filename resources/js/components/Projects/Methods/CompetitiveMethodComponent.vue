@@ -249,7 +249,8 @@
               <label class="form-check-label" v-bind:for="`period-${idx}-indirect`">Непрямий</label>
             </div>
             <div class="invalid-feedback d-block"
-                 v-for="err of error('parameters.' + idx + '.direction')">{{ err }}</div>
+                 v-for="err of error('parameters.' + idx + '.direction')">{{ err }}
+            </div>
           </div>
         </div>
 
@@ -282,7 +283,10 @@
                    v-on:change="clear('parameters.' + idx + '.analog_value')"
                    type="number" step="any">
           </div>
-          <div class="invalid-feedback d-block" v-for="err of error('parameters.' + idx + '.analog_value')">{{ err }}</div>
+          <div class="invalid-feedback d-block" v-for="err of error('parameters.' + idx + '.analog_value')">{{
+              err
+            }}
+          </div>
         </div>
 
         <div class="col-6 col-xl-4 form-group">

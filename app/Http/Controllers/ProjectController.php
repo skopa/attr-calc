@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
+    public const PAGINATION_SIZE = 25;
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +23,7 @@ class ProjectController extends Controller
     public function index(): AnonymousResourceCollection
     {
         return ProjectResource::collection(
-            Project::query()->paginate(25)
+            Project::query()->paginate(self::PAGINATION_SIZE)
         );
     }
 

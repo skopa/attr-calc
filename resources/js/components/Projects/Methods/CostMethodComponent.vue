@@ -30,7 +30,7 @@
             <span class="input-group-text">%</span>
           </div>
         </div>
-      <div class="invalid-feedback d-block" v-for="err of error('percentage_of_cost')">{{ err }}</div>
+        <div class="invalid-feedback d-block" v-for="err of error('percentage_of_cost')">{{ err }}</div>
       </div>
     </div>
 
